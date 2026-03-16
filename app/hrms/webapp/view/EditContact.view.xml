@@ -1,0 +1,31 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.EditContact"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page title="Edit > Contact" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Select change="onStatusChange" width="150px">
+                <items>
+                    <core:Item xmlns:core="sap.ui.core" text="Pending" key="Pending" />
+                    <core:Item xmlns:core="sap.ui.core" text="Accepted" key="Accepted" />
+                    <core:Item xmlns:core="sap.ui.core" text="Rejected" key="Rejected" />
+                    <core:Item xmlns:core="sap.ui.core" text="All" key="All" />
+                </items>
+            </Select>
+        </headerContent>
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Button text="Add New" type="Accept" icon="sap-icon://add" press="onAddNew" class="sapUiMediumMarginBottom" />
+                
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Request Type" /></Column>
+                        <Column><Text text="Status" /></Column>
+                        <Column><Text text="Created Date" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

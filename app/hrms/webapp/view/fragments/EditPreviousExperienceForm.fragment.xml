@@ -1,0 +1,48 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified">
+    <Dialog id="editPreviousExperienceDialog" title="Edit > Previous Experience" contentWidth="600px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Company Name" required="true" />
+                        <Input />
+                        
+                        <Label text="Designation" required="true" />
+                        <Input />
+                        
+                        <Label text="From Date" required="true" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="To Date" required="true" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="Salary" />
+                        <Input />
+                        
+                        <Label text="Reason for leaving" />
+                        <Input />
+                        
+                        <Label text="Experience Letter" />
+                        <u:FileUploader buttonOnly="true" icon="sap-icon://attachment" text="Choose File" />
+
+                        <Label text="" />
+                        <RadioButtonGroup columns="1">
+                            <RadioButton text="Continue adding new entry" />
+                            <RadioButton text="Back to list" selected="true" />
+                        </RadioButtonGroup>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

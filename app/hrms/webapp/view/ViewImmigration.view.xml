@@ -1,0 +1,22 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewImmigration"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Immigration" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Passport No" /></Column>
+                        <Column><Text text="Issue Date" /></Column>
+                        <Column><Text text="Expiry Date" /></Column>
+                        <Column><Text text="Place of Issue" /></Column>
+                        <Column><Text text="ECNR Status" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

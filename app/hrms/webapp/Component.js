@@ -46,7 +46,16 @@ sap.ui.define([
         district: "Ahmedabad",
         state: "Gujarat",
         pinCode: "380015",
-        photo: "https://ui-avatars.com/api/?name=Jayesh+Patel&background=random"
+        photo: "https://ui-avatars.com/api/?name=Jayesh+Patel&background=random",
+        birthPlace: "Ahmedabad",
+        nationality: "Indian",
+        religion: "Hindu",
+        caste: "Patel",
+        bloodGroup: "O+",
+        height: "5'8\"",
+        weight: "70 kg",
+        maritalStatus: "Unmarried",
+        identificationMark: "Mole on left arm"
       });
       this.setModel(oUserModel, "user");
 

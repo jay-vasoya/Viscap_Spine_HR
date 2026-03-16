@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editQualificationDialog" title="Edit > Qualification" contentWidth="600px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Degree" required="true" />
+                        <HBox>
+                            <Input width="100%" />
+                            <Select width="50px" class="sapUiTinyMarginBegin">
+                                <items>
+                                    <core:Item text="" key="" />
+                                </items>
+                            </Select>
+                        </HBox>
+                        
+                        <Label text="Specification" />
+                        <Input />
+                        
+                        <Label text="University" required="true" />
+                        <HBox>
+                            <Input width="100%" />
+                            <Select width="50px" class="sapUiTinyMarginBegin">
+                                <items>
+                                    <core:Item text="" key="" />
+                                </items>
+                            </Select>
+                        </HBox>
+                        
+                        <Label text="Institute" />
+                        <Input />
+                        
+                        <Label text="Passing Year" required="true" />
+                        <HBox>
+                            <Input placeholder="e.g. 2015-Apr" />
+                        </HBox>
+                        
+                        <Label text="Grade" />
+                        <Input />
+                        
+                        <Label text="Location" />
+                        <Input />
+                        
+                        <Label text="Duration" />
+                        <Input />
+                        
+                        <Label text="Type" />
+                        <Select selectedKey="Govt">
+                            <items>
+                                <core:Item text="Govt" key="Govt" />
+                                <core:Item text="Deemed" key="Deemed" />
+                                <core:Item text="Pvt" key="Pvt" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Course Type" required="true" />
+                        <Select selectedKey="FullTime">
+                            <items>
+                                <core:Item text="Full Time" key="FullTime" />
+                                <core:Item text="Part Time" key="PartTime" />
+                                <core:Item text="Correspondence" key="Correspondence" />
+                            </items>
+                        </Select>
+
+                        <Label text="" />
+                        <RadioButtonGroup columns="1">
+                            <RadioButton text="Continue adding new entry" />
+                            <RadioButton text="Back to list" selected="true" />
+                        </RadioButtonGroup>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

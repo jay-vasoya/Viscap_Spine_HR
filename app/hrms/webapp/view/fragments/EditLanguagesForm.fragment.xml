@@ -1,0 +1,48 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editLanguagesDialog" title="Edit > Languages" contentWidth="400px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Language" />
+                        <Select>
+                            <items>
+                                <core:Item text="English" key="English" />
+                                <core:Item text="Hindi" key="Hindi" />
+                                <core:Item text="Gujarati" key="Gujarati" />
+                                <core:Item text="Marathi" key="Marathi" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Read" />
+                        <CheckBox />
+                        
+                        <Label text="Write" />
+                        <CheckBox />
+                        
+                        <Label text="Speak" />
+                        <CheckBox />
+                        
+                        <Label text="Mother Tongue" />
+                        <CheckBox />
+
+                        <Label text="" />
+                        <RadioButtonGroup columns="1">
+                            <RadioButton text="Continue adding new entry" />
+                            <RadioButton text="Back to list" selected="true" />
+                        </RadioButtonGroup>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

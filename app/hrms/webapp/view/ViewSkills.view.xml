@@ -1,0 +1,20 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewSkills"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Skills" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Skill" /></Column>
+                        <Column><Text text="Proficiency" /></Column>
+                        <Column><Text text="Experience (Years)" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

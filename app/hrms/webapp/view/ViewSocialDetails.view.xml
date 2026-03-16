@@ -1,0 +1,19 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewSocialDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Social Details" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Platform" /></Column>
+                        <Column><Text text="Profile Link" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

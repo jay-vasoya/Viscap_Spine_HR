@@ -1,0 +1,22 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewLanguages"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Languages" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Language" /></Column>
+                        <Column hAlign="Center"><Text text="Read" /></Column>
+                        <Column hAlign="Center"><Text text="Write" /></Column>
+                        <Column hAlign="Center"><Text text="Speak" /></Column>
+                        <Column hAlign="Center"><Text text="Mother Tongue" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

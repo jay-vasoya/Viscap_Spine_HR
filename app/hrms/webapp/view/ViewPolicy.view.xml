@@ -1,0 +1,20 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewPolicy"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Policy" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Policy Name" /></Column>
+                        <Column><Text text="Effective Date" /></Column>
+                        <Column><Text text="Download" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

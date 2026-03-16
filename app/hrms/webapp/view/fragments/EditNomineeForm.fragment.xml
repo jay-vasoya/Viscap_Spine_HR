@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editNomineeDialog" title="Edit > Nominee" contentWidth="600px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Nominee Name" required="true" />
+                        <Input />
+                        
+                        <Label text="Relation" required="true" />
+                        <Input />
+                        
+                        <Label text="Nomination Date" required="true" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="Percentage" />
+                        <Input />
+                        
+                        <Label text="Date of Birth" required="true" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="Address" />
+                        <Input />
+                        
+                        <Label text="Guardian Name" />
+                        <Input />
+                        
+                        <Label text="Guardian Address" />
+                        <Input />
+                        
+                        <Label text="Staying with" />
+                        <Select selectedKey="Yes">
+                            <items>
+                                <core:Item text="Yes" key="Yes" />
+                                <core:Item text="No" key="No" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Type" />
+                        <Select selectedKey="Nominee">
+                            <items>
+                                <core:Item text="Nominee" key="Nominee" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Sub Type" />
+                        <Select selectedKey="Both">
+                            <items>
+                                <core:Item text="Both (ESIC/PF)" key="Both" />
+                                <core:Item text="ESIC" key="ESIC" />
+                                <core:Item text="PF" key="PF" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Nominee Is Minor" />
+                        <CheckBox />
+                        
+                        <Label text="Aadhaar No" />
+                        <Input />
+
+                        <Label text="" />
+                        <RadioButtonGroup columns="1">
+                            <RadioButton text="Continue adding new entry" />
+                            <RadioButton text="Back to list" selected="true" />
+                        </RadioButtonGroup>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

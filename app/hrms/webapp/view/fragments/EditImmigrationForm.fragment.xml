@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editImmigrationDialog" title="Edit > Immigration" contentWidth="600px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <MessageStrip
+                    text="* Note: For Immigration fields you can not keep blank values once value has been added previously. Instead you can replace value."
+                    type="Warning"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom" />
+                
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Passport For" />
+                        <Select selectedKey="Self">
+                            <items>
+                                <core:Item text="Self" key="Self" />
+                                <core:Item text="Spouse" key="Spouse" />
+                                <core:Item text="Child" key="Child" />
+                            </items>
+                        </Select>
+                        
+                        <Label text="Passport No." />
+                        <Input />
+                        
+                        <Label text="Issue Date" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="Expiry Date" />
+                        <DatePicker displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-dd" />
+                        
+                        <Label text="Issue Place" />
+                        <Input />
+                        
+                        <Label text="Immigration Status" />
+                        <Input />
+                        
+                        <Label text="Nationality" />
+                        <Input value="{user>/nationality}" />
+                        
+                        <Label text="Passport Document" />
+                        <Button text="Attach Document" icon="sap-icon://attachment" width="150px" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Update" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

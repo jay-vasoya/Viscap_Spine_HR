@@ -1,0 +1,21 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewDrivingLicense"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Driving License" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="License No" /></Column>
+                        <Column><Text text="License Type" /></Column>
+                        <Column><Text text="Vehicle Type" /></Column>
+                        <Column><Text text="Expiry Date" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

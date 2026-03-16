@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editPersonalDialog" title="Edit > Personal" contentWidth="600px">
+        <content>
+            <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                <f:content>
+                    <Label text="AKA(Name)" />
+                    <Input value="{user>/fullName}" />
+                    
+                    <Label text="Birth Place" />
+                    <Input value="{user>/birthPlace}" />
+                    
+                    <Label text="Nationality" />
+                    <Input value="{user>/nationality}" />
+                    
+                    <Label text="Height" />
+                    <Input value="{user>/height}" />
+                    
+                    <Label text="Weight" />
+                    <Input value="{user>/weight}" />
+                    
+                    <Label text="Blood Group" />
+                    <Select selectedKey="{user>/bloodGroup}">
+                        <items>
+                            <core:Item text="NA" key="NA" />
+                            <core:Item text="A+" key="A+" />
+                            <core:Item text="A-" key="A-" />
+                            <core:Item text="B+" key="B+" />
+                            <core:Item text="B-" key="B-" />
+                            <core:Item text="O+" key="O+" />
+                            <core:Item text="O-" key="O-" />
+                            <core:Item text="AB+" key="AB+" />
+                            <core:Item text="AB-" key="AB-" />
+                        </items>
+                    </Select>
+                    
+                    <Label text="Religion" />
+                    <Input value="{user>/religion}" />
+                    
+                    <Label text="Caste" />
+                    <Input value="{user>/caste}" />
+                    
+                    <Label text="Sub Caste" />
+                    <Input />
+                    
+                    <Label text="Languages" />
+                    <Input />
+                    
+                    <Label text="Marriage Date" />
+                    <DatePicker value="{path: 'user>/marriageDate', type: 'sap.ui.model.type.Date'}" />
+                    
+                    <Label text="Identification Mark" />
+                    <Input value="{user>/identificationMark}" />
+                    
+                    <Label text="Is Handicap" />
+                    <CheckBox />
+                    
+                    <Label text="Handicap Nature" />
+                    <Input />
+                    
+                    <Label text="Percent" />
+                    <Input value="0.0000" />
+                    
+                    <Label text="Name As Per Bank" />
+                    <Input />
+                    
+                    <Label text="Name As Per Pan" />
+                    <Input />
+                    
+                    <Label text="Name As Per Aadhar" />
+                    <Input />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Update" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

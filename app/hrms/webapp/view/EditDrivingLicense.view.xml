@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.EditDrivingLicense"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="Edit > Driving License" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <HBox alignItems="Center">
+                <Label text="Driving License For" class="sapUiTinyMarginEnd" />
+                <Select selectedKey="Self" class="sapUiMediumMarginEnd" width="120px">
+                    <items>
+                        <core:Item text="Self" key="Self" />
+                        <core:Item text="Family" key="Family" />
+                    </items>
+                </Select>
+                <Label text="View Status" class="sapUiTinyMarginEnd" />
+                <Select change="onStatusChange" width="150px">
+                    <items>
+                        <core:Item text="Pending" key="Pending" />
+                        <core:Item text="Accepted" key="Accepted" />
+                        <core:Item text="Rejected" key="Rejected" />
+                        <core:Item text="All" key="All" />
+                    </items>
+                </Select>
+            </HBox>
+        </headerContent>
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Button text="Add New" type="Accept" icon="sap-icon://add" press="onAddNew" class="sapUiMediumMarginBottom" />
+                
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Request Type" /></Column>
+                        <Column><Text text="Status" /></Column>
+                        <Column><Text text="Created Date" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

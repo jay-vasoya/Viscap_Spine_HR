@@ -1,0 +1,19 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.EditProfile"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page title="Edit > Profile" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox alignItems="Center" class="sapUiMediumMargin">
+                <Avatar src="{user>/photo}" displaySize="XL" class="sapUiLargeMarginBottom" />
+                
+                <Button text="Add Photo" press="onAddPhoto" type="Emphasized" class="sapUiMediumMarginBottom" />
+                
+                <Text text="Employee {user>/fullName} - {user>/empCode}" class="sapUiMediumMarginBottom" />
+                
+                <Button text="Save" type="Accept" width="100px" press="onSave" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,65 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="editContactDialog" title="Edit > Contact" contentWidth="600px">
+        <content>
+            <VBox class="sapUiContentPadding">
+                <MessageStrip
+                    text="* Note: Following fields can be edited only once: 1. Aadhaar Number, 2. Bank Account Number, 3. PAN, 4. Spouse Name, 5. Father's Name, 6. UAN No."
+                    type="Warning"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom" />
+                
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <core:Title text="Local" />
+                        <Label text="Address" />
+                        <Input />
+                        <Label text="Local Address 3" />
+                        <Input />
+                        <Label text="Local Address 4" />
+                        <Input />
+                        
+                        <core:Title text="Permanent" />
+                        <Label text="Address" />
+                        <Input />
+                        <Label text="Permanent Address 3" />
+                        <Input />
+                        <Label text="Permanent Address 4" />
+                        <Input />
+                        <Label text="Permanent CityName" />
+                        <Input />
+                        <Label text="Permanent District" />
+                        <Input />
+                        <Label text="Permanent State" />
+                        <Input />
+                        <Label text="Permanent PinCode" />
+                        <Input />
+                        
+                        <core:Title text="Contact Info" />
+                        <Label text="Mobile" />
+                        <Input />
+                        <Label text="Email" />
+                        <Input value="jay.vasoya@viscap-cs.com" />
+                        <Label text="Marital Status" />
+                        <Select selectedKey="Unmarried">
+                            <items>
+                                <core:Item text="Unmarried" key="Unmarried" />
+                                <core:Item text="Married" key="Married" />
+                                <core:Item text="Divorced" key="Divorced" />
+                                <core:Item text="Widowed" key="Widowed" />
+                            </items>
+                        </Select>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Update" type="Emphasized" press="onDialogUpdate" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

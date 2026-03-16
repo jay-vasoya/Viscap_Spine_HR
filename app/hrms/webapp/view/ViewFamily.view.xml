@@ -1,0 +1,23 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewFamily"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Family" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Name" /></Column>
+                        <Column><Text text="Relation" /></Column>
+                        <Column><Text text="Birth Date" /></Column>
+                        <Column><Text text="Gender" /></Column>
+                        <Column><Text text="Blood Group" /></Column>
+                        <Column><Text text="Marital Status" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

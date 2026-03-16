@@ -1,0 +1,21 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.ViewQualification"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page title="View > Qualification" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Table noDataText="No details available">
+                    <columns>
+                        <Column><Text text="Qualification" /></Column>
+                        <Column><Text text="Institute" /></Column>
+                        <Column><Text text="Passing Year" /></Column>
+                        <Column hAlign="End"><Text text="Percentage" /></Column>
+                    </columns>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

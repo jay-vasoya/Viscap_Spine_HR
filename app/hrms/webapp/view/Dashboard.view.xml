@@ -22,11 +22,19 @@
                         <VBox class="hrmsLinkList">
                             <Link text="Employment" press="onNavEmployment" />
                             <Link text="Contact" press="onNavContact" />
-                            <Link text="Personal" press="onNavProfile" />
-                            <Link text="Statutory | Family | Nominee" />
-                            <Link text="Immigration | Driving Licenses | Skills" />
-                            <Link text="Languages | Qualifications | Social Details" />
-                            <Link text="Assets List | Previous Experience | Policy" />
+                            <Link text="Personal" press="onNavPersonal" />
+                             <Link text="Statutory" press="onNavViewStatutory" />
+                             <Link text="Family" />
+                             <Link text="Nominee" />
+                             <Link text="Immigration" press="onNavViewImmigration" />
+                             <Link text="Driving Licenses" press="onNavViewDrivingLicense" />
+                             <Link text="Skills" press="onNavViewSkills" />
+                             <Link text="Languages" press="onNavViewLanguages" />
+                             <Link text="Qualifications" press="onNavViewQualification" />
+                             <Link text="Social Details" press="onNavViewSocialDetails" />
+                             <Link text="Assets List" press="onNavViewAssets" />
+                             <Link text="Previous Experience" press="onNavEditPreviousExperience" />
+                             <Link text="Policy" press="onNavViewPolicy" />
                         </VBox>
                     </VBox>
 
@@ -37,11 +45,18 @@
                             <Title text="Edit" level="H4" class="sapUiSmallMarginBegin" />
                         </HBox>
                         <VBox class="hrmsLinkList">
-                            <Link text="Profile | Contact | Personal" press="onNavProfile" />
-                            <Link text="Immigration | Visa Details | Driving License" />
-                            <Link text="Family | Nominee | Skills" />
-                            <Link text="Languages | Qualification |" />
-                            <Link text="Previous Experience" />
+                            <Link text="Profile" press="onNavEditProfile" />
+                            <Link text="Contact" press="onNavEditContact" />
+                            <Link text="Personal" press="onNavEditPersonal" />
+                            <Link text="Immigration" press="onNavEditImmigration" />
+                            <Link text="Visa Details" press="onNavEditVisa" />
+                            <Link text="Driving License" press="onNavEditDrivingLicense" />
+                            <Link text="Family" press="onNavEditFamily" />
+                            <Link text="Nominee" press="onNavEditNominee" />
+                            <Link text="Skills" press="onNavEditSkills" />
+                            <Link text="Languages" press="onNavEditLanguages" />
+                            <Link text="Qualification" press="onNavEditQualification" />
+                            <Link text="Previous Experience" press="onNavEditPreviousExperience" />
                         </VBox>
                     </VBox>
 
@@ -52,8 +67,9 @@
                             <Title text="Salary" level="H4" class="sapUiSmallMarginBegin" />
                         </HBox>
                         <VBox class="hrmsLinkList">
-                            <Link text="CTC | Download CTC | Payslip" press="onNavSalary" />
-                            <Link text="Download Payslip | Monthly Report" />
+                            <Link text="CTC" press="onNavSalaryCTC" />
+                            <Link text="Payslip" press="onNavSalaryPayslip" />
+                            <Link text="Monthly Report" press="onNavSalaryMonthlyReport" />
                         </VBox>
                     </VBox>
 

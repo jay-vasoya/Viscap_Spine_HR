@@ -36,6 +36,17 @@ entity Employees : cuid, managed {
   state             : String(100) @title: 'State';
   pinCode           : String(10)  @title: 'Pin Code';
 
+  // Personal Info
+  birthPlace     : String(100) @title: 'Birth Place';
+  nationality    : String(50)  @title: 'Nationality';
+  religion       : String(50)  @title: 'Religion';
+  caste          : String(50)  @title: 'Caste';
+  bloodGroup     : String(10)  @title: 'Blood Group';
+  height         : String(20)  @title: 'Height';
+  weight         : String(20)  @title: 'Weight';
+  maritalStatus  : String(20)  @title: 'Marital Status';
+  identificationMark : String(200) @title: 'Identification Mark';
+
   status         : String(20)  default 'Active' @title: 'Status';
   manager        : Association to Employees;
   leaveBalances  : Composition of many LeaveBalances on leaveBalances.employee = $self;
