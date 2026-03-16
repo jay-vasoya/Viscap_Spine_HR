@@ -1,0 +1,46 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true">
+    <tnt:ToolPage id="toolPage" sideExpanded="{ui>/sideExpanded}">
+        <tnt:header>
+            <tnt:ToolHeader visible="{ui>/isAppVisible}">
+                <Button id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    type="Transparent"
+                    press=".onSideNavButtonPress">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <ToolbarSpacer width="10px" />
+                <Title text="VISCAP Consultancy Services Pvt. Ltd." level="H4" />
+                <ToolbarSpacer />
+                <Text text="{user>/fullName}" class="sapUiSmallMarginEnd" />
+                <Avatar initials="JP" displaySize="XS" />
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation id="sideNavigation" itemSelect=".onItemSelect" visible="{ui>/isAppVisible}">
+                <tnt:item>
+                    <tnt:NavigationList>
+                        <tnt:NavigationListItem text="Self Service" icon="sap-icon://customer-financial-fact-sheet" key="dashboard" />
+                        <tnt:NavigationListItem text="Leave" icon="sap-icon://approvals" key="leave" />
+                        <tnt:NavigationListItem text="Time" icon="sap-icon://timesheet" key="attendance" />
+                    </tnt:NavigationList>
+                </tnt:item>
+                <tnt:fixedItem>
+                    <tnt:NavigationList>
+                        <tnt:NavigationListItem text="Profile" icon="sap-icon://employee" key="profile" />
+                        <tnt:NavigationListItem text="Settings" icon="sap-icon://action-settings" key="settings" />
+                    </tnt:NavigationList>
+                </tnt:fixedItem>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="idAppControl" />
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

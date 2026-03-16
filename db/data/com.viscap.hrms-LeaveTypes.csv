@@ -1,0 +1,6 @@
+ID,code,name,maxDays,isPaid,carryForward,color
+l1000000-0000-0000-0000-000000000001,CL,Casual Leave,12,true,false,#0070F2
+l1000000-0000-0000-0000-000000000002,SL,Sick Leave,10,true,false,#E9730C
+l1000000-0000-0000-0000-000000000003,PL,Privilege Leave,15,true,true,#188918
+l1000000-0000-0000-0000-000000000004,ML,Maternity Leave,180,true,false,#C0399F
+l1000000-0000-0000-0000-000000000005,LWP,Leave Without Pay,0,false,false,#BB0000

@@ -1,0 +1,114 @@
+/* Premium Styles for VISCAP HRMS Portal */
+:root {
+    --viscap-primary: #1a2a6c;
+    --viscap-secondary: #b21f1f;
+    --viscap-success: #2ecc71;
+    --viscap-warning: #f39c12;
+    --viscap-accent: #3498db;
+    --viscap-bg: #f4f7f9;
+}
+
+.sapUiBody {
+    background-color: var(--viscap-bg);
+}
+
+/* ToolHeader Customization */
+.sapTntToolHeader {
+    background-color: white !important;
+    border-bottom: 2px solid var(--viscap-accent) !important;
+}
+
+.sapTntToolHeader .sapMTitle {
+    color: var(--viscap-primary) !important;
+    font-weight: bold !important;
+}
+
+/* Sidebar Customization */
+.sapTntSideNavigation {
+    background-color: #f8f9fa !important;
+}
+
+.sapTntNavListItem {
+    padding: 0.5rem 0 !important;
+}
+
+.sapTntNavListItemSelected {
+    background-color: rgba(52, 152, 219, 0.1) !important;
+    border-left: 4px solid var(--viscap-accent) !important;
+}
+
+/* Category Box Styles */
+.hrmsCategoryBox {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #eee;
+    height: 100%;
+}
+
+.hrmsCategoryBox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.hrmsLinkList {
+    margin-top: 1rem;
+}
+
+.hrmsLinkList a {
+    display: block;
+    padding: 4px 0;
+    color: #666 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none !important;
+}
+
+.hrmsLinkList a:hover {
+    color: var(--viscap-accent) !important;
+    text-decoration: underline !important;
+}
+
+/* Search Field styling */
+.sapMSF {
+    background: #f1f3f5 !important;
+    border-radius: 20px !important;
+    border: none !important;
+}
+/* Login Page Styles */
+.hrmsLoginPage {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d) !important;
+}
+
+.hrmsLoginCard {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem !important;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: 450px;
+    backdrop-filter: blur(10px);
+}
+
+.hrmsLoginFooterText {
+    color: #999;
+    font-size: 0.8rem !important;
+    text-align: center;
+    width: 100%;
+}
+
+.hrmsLoginCard .sapMInput {
+    background: #f8f9fa !important;
+}
+
+.hrmsLoginCard .sapMTitle {
+    color: var(--viscap-primary);
+    font-weight: bold;
+}
+
+/* Navigation links responsive padding */
+@media (max-width: 600px) {
+    .hrmsCategoryBox {
+        margin-bottom: 1rem;
+    }
+}

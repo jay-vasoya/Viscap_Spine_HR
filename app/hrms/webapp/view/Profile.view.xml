@@ -1,0 +1,24 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.Profile"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+    <Page title="My Profile" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <f:SimpleForm title="Personal Information" editable="false" layout="ColumnLayout">
+                    <f:content>
+                        <Label text="Employee Code" />
+                        <Text text="{user>/empCode}" />
+                        <Label text="Full Name" />
+                        <Text text="{user>/fullName}" />
+                        <Label text="Designation" />
+                        <Text text="{user>/designation}" />
+                        <Label text="Department" />
+                        <Text text="{user>/department}" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

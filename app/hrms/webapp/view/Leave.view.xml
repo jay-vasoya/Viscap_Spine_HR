@@ -1,0 +1,187 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.Leave"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  displayBlock="true">
+
+  <Page title="Leave" showNavButton="true" navButtonPress="onNavBack" backgroundDesign="List">
+
+    <headerContent>
+      <Button icon="sap-icon://add" text="Apply Leave" type="Emphasized" press="onApplyLeave" />
+    </headerContent>
+
+    <content>
+      <VBox class="sapUiMediumMargin">
+
+        <!-- Leave Balance Tiles -->
+        <Title text="Leave Balance 2026" level="H4" class="sapUiSmallMarginBottom" />
+        <layout:Grid defaultSpan="XL3 L3 M6 S6" class="sapUiSmallMarginBottom">
+          <layout:content>
+            <GenericTile header="Casual Leave" subheader="CL" class="hrmsTileSmall">
+              <tileContent>
+                <TileContent>
+                  <content>
+                    <NumericContent value="{leaveModel>/CL_balance}" scale="days"
+                      valueColor="{= ${leaveModel>/CL_balance} > 3 ? 'Good' : 'Critical'}" />
+                  </content>
+                </TileContent>
+              </tileContent>
+            </GenericTile>
+            <GenericTile header="Sick Leave" subheader="SL" class="hrmsTileSmall">
+              <tileContent>
+                <TileContent>
+                  <content>
+                    <NumericContent value="{leaveModel>/SL_balance}" scale="days"
+                      valueColor="{= ${leaveModel>/SL_balance} > 3 ? 'Good' : 'Critical'}" />
+                  </content>
+                </TileContent>
+              </tileContent>
+            </GenericTile>
+            <GenericTile header="Privilege Leave" subheader="PL" class="hrmsTileSmall">
+              <tileContent>
+                <TileContent>
+                  <content>
+                    <NumericContent value="{leaveModel>/PL_balance}" scale="days"
+                      valueColor="{= ${leaveModel>/PL_balance} > 3 ? 'Good' : 'Critical'}" />
+                  </content>
+                </TileContent>
+              </tileContent>
+            </GenericTile>
+            <GenericTile header="Total Balance" subheader="All Types" class="hrmsTileSmall">
+              <tileContent>
+                <TileContent>
+                  <content>
+                    <NumericContent value="{leaveModel>/total_balance}" scale="days" valueColor="Good" />
+                  </content>
+                </TileContent>
+              </tileContent>
+            </GenericTile>
+          </layout:content>
+        </layout:Grid>
+
+        <!-- Filter Bar -->
+        <Toolbar class="sapUiSmallMarginBottom">
+          <Title text="My Leave Requests" level="H4" />
+          <ToolbarSpacer />
+          <Select id="statusFilter" change="onFilterChange">
+            <core:Item key="ALL"       text="All Status" />
+            <core:Item key="Pending"   text="Pending" />
+            <core:Item key="Approved"  text="Approved" />
+            <core:Item key="Rejected"  text="Rejected" />
+            <core:Item key="Cancelled" text="Cancelled" />
+          </Select>
+        </Toolbar>
+
+        <!-- Leave Table -->
+        <Table
+          id="leaveTable"
+          items="{
+            path: 'hrms>/LeaveRequests',
+            filters: [{ path: 'employee_ID', operator: 'EQ', value1: 'e1000000-0000-0000-0000-000000000001' }],
+            sorters: [{ path: 'appliedOn', descending: true }]
+          }"
+          backgroundDesign="Solid"
+          growing="true"
+          growingThreshold="10">
+
+          <headerToolbar>
+            <OverflowToolbar>
+              <Label text="Leave Requests" design="Bold" />
+              <ToolbarSpacer />
+              <SearchField width="200px" search="onSearch" placeholder="Search..." />
+            </OverflowToolbar>
+          </headerToolbar>
+
+          <columns>
+            <Column width="10rem"><Text text="Request No" /></Column>
+            <Column width="10rem"><Text text="Leave Type" /></Column>
+            <Column width="8rem"><Text text="From" /></Column>
+            <Column width="8rem"><Text text="To" /></Column>
+            <Column width="5rem"><Text text="Days" /></Column>
+            <Column><Text text="Reason" /></Column>
+            <Column width="8rem"><Text text="Status" /></Column>
+            <Column width="8rem"><Text text="Applied On" /></Column>
+            <Column width="7rem"><Text text="Action" /></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{hrms>requestNo}" />
+                <ObjectIdentifier title="{hrms>leaveTypeName}" text="{hrms>leaveTypeCode}" />
+                <Text text="{hrms>fromDate}" />
+                <Text text="{hrms>toDate}" />
+                <Text text="{hrms>days}" />
+                <Text text="{hrms>reason}" maxLines="2" wrapping="true" />
+                <ObjectStatus text="{hrms>status}"
+                  state="{= ${hrms>status} === 'Approved' ? 'Success' :
+                           ${hrms>status} === 'Rejected' ? 'Error' :
+                           ${hrms>status} === 'Cancelled' ? 'None' : 'Warning'}" />
+                <Text text="{hrms>appliedOn}" />
+                <Button text="Cancel" type="Negative" press="onCancelLeave"
+                  visible="{= ${hrms>status} === 'Pending'}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+
+          <noData>
+            <Text text="No leave requests found." />
+          </noData>
+        </Table>
+
+      </VBox>
+    </content>
+
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://home" text="Home" press="onNavBack" />
+        </contentLeft>
+        <contentMiddle>
+          <Button icon="sap-icon://add" text="Apply Leave" type="Emphasized" press="onApplyLeave" />
+        </contentMiddle>
+      </Bar>
+    </footer>
+
+  </Page>
+
+  <!-- Apply Leave Dialog -->
+  <Dialog id="applyLeaveDialog" title="Apply for Leave" contentWidth="480px">
+    <content>
+      <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+        <Label text="Leave Type" required="true" class="sapUiSmallMarginBottom" />
+        <Select id="leaveTypeSelect" width="100%" class="sapUiSmallMarginBottom"
+          items="{path: 'hrms>/LeaveTypes'}">
+          <core:Item key="{hrms>ID}" text="{hrms>name}" />
+        </Select>
+
+        <Label text="From Date" required="true" class="sapUiSmallMarginBottom" />
+        <DatePicker id="fromDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" change="onDateChange" />
+
+        <Label text="To Date" required="true" class="sapUiSmallMarginBottom" />
+        <DatePicker id="toDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" change="onDateChange" />
+
+        <Label text="Working Days" class="sapUiSmallMarginBottom" />
+        <Input id="daysInput" value="{dialogModel>/days}" enabled="false"
+          width="100%" class="sapUiSmallMarginBottom" />
+
+        <Label text="Reason" required="true" class="sapUiSmallMarginBottom" />
+        <TextArea id="reasonInput" rows="3" width="100%"
+          placeholder="Enter reason for leave..." />
+      </VBox>
+    </content>
+    <beginButton>
+      <Button text="Submit" type="Emphasized" press="onSubmitLeave" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press="onCloseLeaveDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>

@@ -1,0 +1,30 @@
+{
+  "name": "hrms-app",
+  "version": "1.0.0",
+  "description": "VISCAP HRMS – SAP Fiori + CAP Backend with SQLite",
+  "scripts": {
+    "start":  "cds serve --production",
+    "dev":    "cds watch",
+    "build":  "cds build --production",
+    "deploy": "cds deploy --to sqlite:db/hrms.db",
+    "watch":  "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": { "database": "db/hrms.db" }
+      }
+    },
+    "server": { "cors": true }
+  },
+  "dependencies": {
+    "@sap/cds": "^9.8.3",
+    "express":  "^4.18.2"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk":    "^9"
+  },
+  "private": true
+}

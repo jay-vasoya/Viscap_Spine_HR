@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    displayBlock="true">
+
+    <Page id="dashboardPage" title="Self Service" backgroundDesign="List">
+        <headerContent>
+            <SearchField width="300px" placeholder="Search...." class="sapUiSmallMarginEnd" />
+        </headerContent>
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <layout:Grid defaultSpan="XL4 L4 M6 S12">
+                    <!-- View Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://unhide" size="2rem" color="#1a2a6c" xmlns:core="sap.ui.core" />
+                            <Title text="View" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="Employment" press="onNavEmployment" />
+                            <Link text="Contact" press="onNavContact" />
+                            <Link text="Personal" press="onNavProfile" />
+                            <Link text="Statutory | Family | Nominee" />
+                            <Link text="Immigration | Driving Licenses | Skills" />
+                            <Link text="Languages | Qualifications | Social Details" />
+                            <Link text="Assets List | Previous Experience | Policy" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Edit Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://edit" size="2rem" color="#b21f1f" xmlns:core="sap.ui.core" />
+                            <Title text="Edit" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="Profile | Contact | Personal" press="onNavProfile" />
+                            <Link text="Immigration | Visa Details | Driving License" />
+                            <Link text="Family | Nominee | Skills" />
+                            <Link text="Languages | Qualification |" />
+                            <Link text="Previous Experience" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Salary Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://money-bills" size="2rem" color="#2ecc71" xmlns:core="sap.ui.core" />
+                            <Title text="Salary" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="CTC | Download CTC | Payslip" press="onNavSalary" />
+                            <Link text="Download Payslip | Monthly Report" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Taxation Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://waiver" size="2rem" color="#f39c12" xmlns:core="sap.ui.core" />
+                            <Title text="Taxation" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="View Tax Eligibility | Tax Projection |" />
+                            <Link text="Download Tax Projection" />
+                            <Link text="Download Form 16 | Declaration List |" />
+                            <Link text="Edit Tax Eligibility" />
+                            <Link text="Add Declaration |" />
+                            <Link text="Submit Tax Declaration - Sheet |" />
+                            <Link text="Investment / Claim Made List" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Quick Info Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://BusinessSuiteInAppSymbols/icon-quick-info" size="2rem" color="#9b59b6" xmlns:core="sap.ui.core" />
+                            <Title text="Quick Info" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="Tax Calculator | Photo Gallery |" />
+                            <Link text="Add Quick Links" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Workflow Category -->
+                    <VBox class="hrmsCategoryBox">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://workflow-tasks" size="2rem" color="#34495e" xmlns:core="sap.ui.core" />
+                            <Title text="Workflow" level="H4" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <VBox class="hrmsLinkList">
+                            <Link text="My Approvers | My Workflow |" />
+                            <Link text="Organization Chart" />
+                            <Link text="ORG Chart Corporate View" />
+                        </VBox>
+                    </VBox>
+                </layout:Grid>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

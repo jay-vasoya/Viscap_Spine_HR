@@ -1,0 +1,57 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.Contact"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+    <Page title="View > Contact" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Title text="Contact Information" level="H2" textAlign="Center" width="100%" class="sapUiMediumMarginBottom" />
+
+                <f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+                    <f:content>
+                        <core:Title text="Address Details" xmlns:core="sap.ui.core" />
+                        <Label text="Local Address" />
+                        <Text text="{user>/localAddress}" />
+                        
+                        <Label text="Permanent Address" />
+                        <Text text="{user>/permanentAddress}" />
+                        
+                        <Label text="City" />
+                        <Text text="{user>/city}" />
+                        
+                        <Label text="District" />
+                        <Text text="{user>/district}" />
+                        
+                        <Label text="State" />
+                        <Text text="{user>/state}" />
+                        
+                        <Label text="Pin Code" />
+                        <Text text="{user>/pinCode}" />
+
+                        <core:Title text="Communication" xmlns:core="sap.ui.core" />
+                        <Label text="Mobile" />
+                        <Text text="{user>/mobile}" />
+                        
+                        <Label text="Res Phone No." />
+                        <Text text="{user>/resPhone}" />
+                        
+                        <Label text="Office Phone No." />
+                        <Text text="{user>/officePhone}" />
+                        
+                        <Label text="Extn No." />
+                        <Text text="{user>/extnNo}" />
+                        
+                        <Label text="Email" />
+                        <Text text="{user>/email}" />
+                        
+                        <Label text="Alt. Email" />
+                        <Text text="{user>/altEmail}" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,147 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.Salary"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:layout="sap.ui.layout"
+  xmlns:uxap="sap.uxap"
+  displayBlock="true">
+
+  <Page title="Salary and Payslips" showNavButton="true" navButtonPress="onNavBack" backgroundDesign="List">
+    <content>
+      <VBox class="sapUiMediumMargin">
+
+        <!-- CTC Summary -->
+        <Panel headerText="CTC Breakdown" backgroundDesign="Solid"
+               class="sapUiSmallMarginBottom" expandable="true" expanded="true">
+          <content>
+            <layout:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMargin">
+              <layout:content>
+                <VBox>
+                  <Label text="Annual CTC" />
+                  <Title text="Rs. 6,90,000" level="H3" class="sapUiSmallMarginTop" />
+                </VBox>
+                <VBox>
+                  <Label text="Monthly Gross" />
+                  <Title text="Rs. 57,500" level="H3" class="sapUiSmallMarginTop" />
+                </VBox>
+                <VBox>
+                  <Label text="Monthly Net" />
+                  <Title text="Rs. 50,300" level="H3" class="sapUiSmallMarginTop" />
+                </VBox>
+                <VBox>
+                  <Label text="Total Deductions" />
+                  <Title text="Rs. 7,200" level="H3" class="sapUiSmallMarginTop" />
+                </VBox>
+              </layout:content>
+            </layout:Grid>
+          </content>
+        </Panel>
+
+        <!-- Payslips Table -->
+        <Title text="Payslips" level="H4" class="sapUiSmallMarginBottom" />
+        <Table
+          id="payslipTable"
+          items="{
+            path: 'hrms>/Payslips',
+            filters: [{ path: 'employee_ID', operator: 'EQ', value1: 'e1000000-0000-0000-0000-000000000001' }],
+            sorters: [{ path: 'year', descending: true }, { path: 'month', descending: true }]
+          }"
+          backgroundDesign="Solid">
+
+          <columns>
+            <Column width="8rem"><Text text="Month" /></Column>
+            <Column width="6rem"><Text text="Year" /></Column>
+            <Column width="10rem"><Text text="Gross Salary" /></Column>
+            <Column width="10rem"><Text text="Net Salary" /></Column>
+            <Column width="8rem"><Text text="Status" /></Column>
+            <Column width="8rem"><Text text="Paid On" /></Column>
+            <Column width="7rem"><Text text="Detail" /></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem press="onPayslipPress" type="Navigation">
+              <cells>
+                <Text text="{path: 'hrms>month', formatter: '.monthNameFormatter'}" />
+                <Text text="{hrms>year}" />
+                <Text text="{path: 'hrms>grossSalary', formatter: '.currencyFormatter'}" />
+                <ObjectStatus
+                  text="{path: 'hrms>netSalary', formatter: '.currencyFormatter'}"
+                  state="Success" />
+                <ObjectStatus text="{hrms>status}"
+                  state="{= ${hrms>status} === 'Paid' ? 'Success' : 'Warning'}" />
+                <Text text="{hrms>paidOn}" />
+                <Button icon="sap-icon://detail-view" type="Transparent" press="onPayslipPress" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <!-- Payslip Detail -->
+        <Panel id="payslipDetailPanel" visible="false" backgroundDesign="Solid"
+               headerText="Payslip Detail" class="sapUiMediumMarginTop"
+               expandable="true" expanded="true">
+          <content>
+            <layout:Grid defaultSpan="L6 M12 S12" class="sapUiSmallMargin">
+              <layout:content>
+                <VBox>
+                  <Title text="Earnings" level="H5" class="sapUiSmallMarginBottom" />
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="Basic Salary" />
+                    <Text id="detailBasic" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="HRA" />
+                    <Text id="detailHRA" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="DA" />
+                    <Text id="detailDA" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="Other Allowances" />
+                    <Text id="detailOther" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+                    <Title text="Gross Total" level="H6" />
+                    <Title id="detailGross" text="" level="H6" />
+                  </HBox>
+                </VBox>
+                <VBox>
+                  <Title text="Deductions" level="H5" class="sapUiSmallMarginBottom" />
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="Provident Fund (PF)" />
+                    <Text id="detailPF" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="ESIC" />
+                    <Text id="detailESIC" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="TDS" />
+                    <Text id="detailTDS" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text text="Other Deductions" />
+                    <Text id="detailOtherDed" text="" />
+                  </HBox>
+                  <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+                    <Title text="Net Salary" level="H5" />
+                    <Title id="detailNet" text="" level="H5" />
+                  </HBox>
+                </VBox>
+              </layout:content>
+            </layout:Grid>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://home" text="Home" press="onNavBack" />
+        </contentLeft>
+      </Bar>
+    </footer>
+  </Page>
+</mvc:View>

@@ -1,0 +1,12 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "credentials": { "database": "db/hrms.db" }
+    }
+  },
+  "server": {
+    "cors": true,
+    "port": 4004
+  }
+}

@@ -1,0 +1,48 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    displayBlock="true">
+    <Page showHeader="false" class="hrmsLoginPage">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+                <items>
+                    <!-- Floating Login Card -->
+                    <VBox class="hrmsLoginCard sapUiLargeMargin">
+                        <items>
+                            <Title text="Login" level="H2" class="sapUiMediumMarginBottom" />
+                            
+                            <Label text="Company" />
+                            <Input value="VISCAP" editable="false" />
+                            
+                            <Label text="Login As" class="sapUiSmallMarginTop" />
+                            <Select width="100%">
+                                <items>
+                                    <core:Item xmlns:core="sap.ui.core" text="User" key="user" />
+                                    <core:Item xmlns:core="sap.ui.core" text="Manager" key="mgr" />
+                                    <core:Item xmlns:core="sap.ui.core" text="Admin" key="admin" />
+                                </items>
+                            </Select>
+                            
+                            <Label text="User Name *" class="sapUiSmallMarginTop" required="true" />
+                            <Input id="username" placeholder="Enter username (e.g. 240)" value="240" />
+                            
+                            <Label text="Password *" class="sapUiSmallMarginTop" required="true" />
+                            <Input id="password" type="Password" placeholder="Enter password" value="password" />
+                            
+                            <Button text="Login" type="Emphasized" width="100%" class="sapUiMediumMarginTop" press="onLogin" />
+                            
+                            <HBox justifyContent="Center" class="sapUiSmallMarginTop">
+                                <Link text="Forgot password ?" />
+                            </HBox>
+                            
+                            <Text text="developed by Spine Technologies (I) Pvt. Ltd." class="hrmsLoginFooterText sapUiLargeMarginTop" />
+                        </items>
+                    </VBox>
+                </items>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

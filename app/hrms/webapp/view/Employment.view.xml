@@ -1,0 +1,61 @@
+<mvc:View
+    controllerName="com.viscap.hrms.controller.Employment"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+    <Page title="View > Employment" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Title text="Employee Details" level="H2" textAlign="Center" width="100%" class="sapUiMediumMarginBottom" />
+                
+                <HBox justifyContent="Center" class="sapUiLargeMarginBottom">
+                    <Avatar src="{user>/photo}" initials="JP" displaySize="XL" />
+                </HBox>
+
+                <f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+                    <f:content>
+                        <core:Title text="General Information" xmlns:core="sap.ui.core" />
+                        <Label text="Name" />
+                        <Text text="{user>/fullName}" />
+                        
+                        <Label text="Fathers Name" />
+                        <Text text="{user>/fatherName}" />
+                        
+                        <Label text="Date of Birth" />
+                        <Text text="{path: 'user>/dateOfBirth', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd-MMM-yyyy' }}" />
+                        
+                        <Label text="Joining Date" />
+                        <Text text="{path: 'user>/dateOfJoining', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd-MMM-yyyy' }}" />
+                        
+                        <Label text="Grade" />
+                        <Text text="{user>/grade}" />
+                        
+                        <Label text="Branch" />
+                        <Text text="{user>/branch}" />
+
+                        <core:Title text="Job Details" xmlns:core="sap.ui.core" />
+                        <Label text="Code" />
+                        <Text text="{user>/empCode}" />
+                        
+                        <Label text="Spouse Name" />
+                        <Text text="{user>/spouseName}" />
+                        
+                        <Label text="Gender" />
+                        <Text text="{user>/gender}" />
+                        
+                        <Label text="Confirmation Dt." />
+                        <Text text="{path: 'user>/confirmationDt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd-MMM-yyyy' }}" />
+                        
+                        <Label text="Designation" />
+                        <Text text="{user>/designation}" />
+                        
+                        <Label text="Division" />
+                        <Text text="{user>/division}" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
