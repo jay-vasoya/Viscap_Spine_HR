@@ -22,8 +22,6 @@ entity Employees : cuid, managed {
   branch         : String(100) @title: 'Branch';
   division       : String(100) @title: 'Division';
   category       : String(50)  @title: 'Category';
-  
-  // Contact Info
   localAddress      : String(500) @title: 'Local Address';
   permanentAddress  : String(500) @title: 'Permanent Address';
   resPhone          : String(20)  @title: 'Res Phone No';
@@ -35,12 +33,15 @@ entity Employees : cuid, managed {
   district          : String(100) @title: 'District';
   state             : String(100) @title: 'State';
   pinCode           : String(10)  @title: 'Pin Code';
-
   status         : String(20)  default 'Active' @title: 'Status';
   manager        : Association to Employees;
-  leaveBalances  : Composition of many LeaveBalances on leaveBalances.employee = $self;
-  attendances    : Composition of many Attendances on attendances.employee = $self;
-  leaveRequests  : Composition of many LeaveRequests on leaveRequests.employee = $self;
+  leaveBalances  : Composition of many LeaveBalances       on leaveBalances.employee = $self;
+  attendances    : Composition of many Attendances         on attendances.employee   = $self;
+  leaveRequests  : Composition of many LeaveRequests       on leaveRequests.employee = $self;
+  swipeRequests  : Composition of many SwipeRequests       on swipeRequests.employee = $self;
+  outdoorDuties  : Composition of many OutdoorDutyRequests on outdoorDuties.employee = $self;
+  leavePlanned   : Composition of many LeavePlanned        on leavePlanned.employee  = $self;
+  compOffReqs    : Composition of many CompOffRequests     on compOffReqs.employee   = $self;
 }
 
 // ─── Departments ─────────────────────────────────────────────────────────────
@@ -55,83 +56,137 @@ entity LeaveTypes : cuid {
   code         : String(20)  @title: 'Leave Code';
   name         : String(100) @title: 'Leave Name';
   maxDays      : Integer     @title: 'Max Days Per Year';
-  isPaid       : Boolean     default true @title: 'Is Paid';
+  isPaid       : Boolean     default true  @title: 'Is Paid';
   carryForward : Boolean     default false @title: 'Carry Forward';
   color        : String(20)  @title: 'Color';
 }
 
 // ─── Leave Balances ──────────────────────────────────────────────────────────
-entity LeaveBalances : cuid {
-  employee    : Association to Employees;
-  leaveType   : Association to LeaveTypes;
-  year        : Integer      @title: 'Year';
-  entitled    : Decimal(5,2) @title: 'Entitled Days';
-  taken       : Decimal(5,2) default 0 @title: 'Taken Days';
-  pending     : Decimal(5,2) default 0 @title: 'Pending Days';
-  balance     : Decimal(5,2) @title: 'Balance Days';
+// ✅ LeaveBalances must have an Association to LeaveTypes
+entity LeaveBalances : cuid, managed {
+  employee  : Association to Employees;
+  leaveType : Association to LeaveTypes;  // ← must exist
+  totalDays      : Integer;
+  usedDays       : Integer;
+  remainingDays  : Integer;
+  lapsedDays     : Integer;
+  carryForward   : Integer;
+  year           : Integer;
 }
 
 // ─── Leave Requests ──────────────────────────────────────────────────────────
 entity LeaveRequests : cuid, managed {
-  requestNo    : String(20)  @title: 'Request No';
-  employee     : Association to Employees;
-  leaveType    : Association to LeaveTypes;
-  fromDate     : Date        @title: 'From Date';
-  toDate       : Date        @title: 'To Date';
-  days         : Decimal(5,2) @title: 'Number of Days';
-  reason       : String(500) @title: 'Reason';
-  status       : String(20)  default 'Pending' @title: 'Status';
-  appliedOn    : DateTime    @title: 'Applied On';
-  approvedBy   : Association to Employees;
-  approvedOn   : DateTime    @title: 'Approved On';
-  remarks      : String(500) @title: 'Approver Remarks';
+  requestNo  : String(20)   @title: 'Request No';
+  employee   : Association to Employees;
+  leaveType  : Association to LeaveTypes;
+  fromDate   : Date         @title: 'From Date';
+  toDate     : Date         @title: 'To Date';
+  days       : Decimal(5,2) @title: 'Number of Days';
+  reason     : String(500)  @title: 'Reason';
+  status     : String(20)   default 'Pending' @title: 'Status';
+  appliedOn  : DateTime     @title: 'Applied On';
+  approvedBy : Association to Employees;
+  approvedOn : DateTime     @title: 'Approved On';
+  remarks    : String(500)  @title: 'Approver Remarks';
+}
+
+// ─── Leave Planned ───────────────────────────────────────────────────────────
+entity LeavePlanned : cuid, managed {
+  employee   : Association to Employees;
+  leaveType  : Association to LeaveTypes;
+  fromDate   : Date         @title: 'From Date';
+  toDate     : Date         @title: 'To Date';
+  days       : Decimal(5,2) @title: 'Number of Days';
+  reason     : String(500)  @title: 'Reason';
+  status     : String(20)   default 'Pending' @title: 'Status';
+}
+
+// ─── Outdoor Duty Requests ───────────────────────────────────────────────────
+entity OutdoorDutyRequests : cuid, managed {
+  requestNo  : String(20)  @title: 'Request No';
+  employee   : Association to Employees;
+  date       : Date        @title: 'Date';
+  fromTime   : Time        @title: 'From Time';
+  toTime     : Time        @title: 'To Time';
+  location   : String(200) @title: 'Location';
+  purpose    : String(500) @title: 'Purpose';
+  status     : String(20)  default 'Pending' @title: 'Status';
+  approvedBy : Association to Employees;
+  approvedOn : DateTime    @title: 'Approved On';
+  remarks    : String(500) @title: 'Remarks';
+}
+
+// ─── Comp Off Requests ───────────────────────────────────────────────────────
+entity CompOffRequests : cuid, managed {
+  requestNo  : String(20)  @title: 'Request No';
+  employee   : Association to Employees;
+  workedDate : Date        @title: 'Worked Date';
+  shift      : String(20)  @title: 'Shift';  // FULL, FIRST, SECOND
+  availDate  : Date        @title: 'Avail Date';
+  reason     : String(500) @title: 'Reason';
+  status     : String(20)  default 'Pending' @title: 'Status';
+  approvedBy : Association to Employees;
+  approvedOn : DateTime    @title: 'Approved On';
+  remarks    : String(500) @title: 'Remarks';
 }
 
 // ─── Attendances ─────────────────────────────────────────────────────────────
 entity Attendances : cuid {
-  employee    : Association to Employees;
-  date        : Date         @title: 'Date';
-  inTime      : Time         @title: 'In Time';
-  outTime     : Time         @title: 'Out Time';
-  workHours   : Decimal(4,2) @title: 'Work Hours';
-  status      : String(20)   @title: 'Status';  // Present, Absent, WFH, Holiday, Leave
-  remarks     : String(200)  @title: 'Remarks';
-  swipeCount  : Integer      default 0 @title: 'Swipe Count';
+  employee   : Association to Employees;
+  date       : Date         @title: 'Date';
+  inTime     : Time         @title: 'In Time';
+  outTime    : Time         @title: 'Out Time';
+  workHours  : Decimal(4,2) @title: 'Work Hours';
+  status     : String(20)   @title: 'Status';
+  remarks    : String(200)  @title: 'Remarks';
+  swipeCount : Integer      default 0 @title: 'Swipe Count';
 }
 
 // ─── Holidays ────────────────────────────────────────────────────────────────
 entity Holidays : cuid {
-  date        : Date         @title: 'Date';
-  name        : String(100)  @title: 'Holiday Name';
-  type        : String(50)   @title: 'Type';
-  year        : Integer      @title: 'Year';
+  date : Date        @title: 'Date';
+  name : String(100) @title: 'Holiday Name';
+  type : String(50)  @title: 'Type';
+  year : Integer     @title: 'Year';
 }
 
 // ─── Payslips ────────────────────────────────────────────────────────────────
 entity Payslips : cuid {
-  employee     : Association to Employees;
-  month        : Integer     @title: 'Month';
-  year         : Integer     @title: 'Year';
-  basicSalary  : Decimal(10,2) @title: 'Basic Salary';
-  hra          : Decimal(10,2) @title: 'HRA';
-  da           : Decimal(10,2) @title: 'DA';
+  employee        : Association to Employees;
+  month           : Integer       @title: 'Month';
+  year            : Integer       @title: 'Year';
+  basicSalary     : Decimal(10,2) @title: 'Basic Salary';
+  hra             : Decimal(10,2) @title: 'HRA';
+  da              : Decimal(10,2) @title: 'DA';
   otherAllowances : Decimal(10,2) @title: 'Other Allowances';
-  grossSalary  : Decimal(10,2) @title: 'Gross Salary';
-  pf           : Decimal(10,2) @title: 'PF';
-  esic         : Decimal(10,2) @title: 'ESIC';
-  tds          : Decimal(10,2) @title: 'TDS';
+  grossSalary     : Decimal(10,2) @title: 'Gross Salary';
+  pf              : Decimal(10,2) @title: 'PF';
+  esic            : Decimal(10,2) @title: 'ESIC';
+  tds             : Decimal(10,2) @title: 'TDS';
   otherDeductions : Decimal(10,2) @title: 'Other Deductions';
-  netSalary    : Decimal(10,2) @title: 'Net Salary';
-  status       : String(20)   default 'Draft' @title: 'Status';
-  paidOn       : Date         @title: 'Paid On';
+  netSalary       : Decimal(10,2) @title: 'Net Salary';
+  status          : String(20)    default 'Draft' @title: 'Status';
+  paidOn          : Date          @title: 'Paid On';
 }
 
 // ─── Swipe Requests ──────────────────────────────────────────────────────────
 entity SwipeRequests : cuid, managed {
-  employee     : Association to Employees;
-  date         : Date        @title: 'Date';
-  swipeTime    : Time        @title: 'Swipe Time';
-  swipeType    : String(20)  @title: 'Swipe Type';  // IN, OUT
-  reason       : String(500) @title: 'Reason';
-  status       : String(20)  default 'Pending' @title: 'Status';
+  employee  : Association to Employees;
+  date      : Date        @title: 'Date';
+  swipeTime : Time        @title: 'Swipe Time';
+  swipeType : String(20)  @title: 'Swipe Type';
+  reason    : String(500) @title: 'Reason';
+  status    : String(20)  default 'Pending' @title: 'Status';
+}
+
+entity LeaveRules : cuid, managed {
+  leaveType        : Association to LeaveTypes;
+  entitledDays     : Integer;
+  maxCarryForward  : Integer;
+  minNoticeDays    : Integer;
+  maxConsecutiveDays : Integer;
+  isPaidLeave      : Boolean default true;
+  isCarryAllowed   : Boolean default false;
+  applicableGender : String(10); // 'All', 'Male', 'Female'
+  remarks          : String(500);
 }

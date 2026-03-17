@@ -1,0 +1,141 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.CompOff"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page title="Comp. Off" showNavButton="true" navButtonPress="onNavBack"
+        backgroundDesign="List">
+
+    <headerContent>
+      <Button icon="sap-icon://add" text="Apply Comp. Off"
+              type="Emphasized" press="onApplyCompOff" />
+    </headerContent>
+
+    <content>
+      <VBox class="sapUiSmallMargin">
+
+        <!-- Balance Tile -->
+        <HBox class="sapUiSmallMarginBottom">
+          <GenericTile header="Comp. Off Balance" class="hrmsTileSmall">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <NumericContent value="{compOffModel>/balance}"
+                    scale="days" valueColor="Good" />
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
+        </HBox>
+
+        <Toolbar class="sapUiSmallMarginBottom">
+          <Select id="compOffStatusFilter" change="onFilterChange">
+            <core:Item key="ALL"       text="All Status" />
+            <core:Item key="Pending"   text="Pending" />
+            <core:Item key="Approved"  text="Approved" />
+            <core:Item key="Rejected"  text="Rejected" />
+            <core:Item key="Cancelled" text="Cancelled" />
+          </Select>
+          <ToolbarSpacer />
+          <SearchField width="200px" search="onSearch" placeholder="Search..." />
+        </Toolbar>
+
+        <Table id="compOffTable"
+          items="{
+            path: 'hrms>/CompOffRequests',
+            filters: [{ path: 'employee_ID', operator: 'EQ',
+                        value1: 'e1000000-0000-0000-0000-000000000001' }],
+            sorters: [{ path: 'workedDate', descending: true }]
+          }"
+          backgroundDesign="Solid"
+          growing="true" growingThreshold="10">
+
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Comp. Off Requests" level="H4" />
+              <ToolbarSpacer />
+            </Toolbar>
+          </headerToolbar>
+
+          <columns>
+            <Column width="8rem"><Text text="Request No" /></Column>
+            <Column width="7rem"><Text text="Worked Date" /></Column>
+            <Column width="7rem"><Text text="Avail Date" /></Column>
+            <Column width="6rem"><Text text="Shift" /></Column>
+            <Column><Text text="Reason" /></Column>
+            <Column width="7rem"><Text text="Status" /></Column>
+            <Column width="7rem"><Text text="Action" /></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{hrms>requestNo}" />
+                <Text text="{hrms>workedDate}" />
+                <Text text="{hrms>availDate}" />
+                <Text text="{hrms>shift}" />
+                <Text text="{hrms>reason}" maxLines="2" wrapping="true" />
+                <ObjectStatus text="{hrms>status}"
+                  state="{= ${hrms>status} === 'Approved'  ? 'Success' :
+                             ${hrms>status} === 'Rejected'  ? 'Error'   :
+                             ${hrms>status} === 'Cancelled' ? 'None'    : 'Warning'}" />
+                <Button text="Cancel" type="Negative" press="onCancelCompOff"
+                  visible="{= ${hrms>status} === 'Pending'}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+          <noData><Text text="No comp. off requests found." /></noData>
+        </Table>
+      </VBox>
+    </content>
+
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://nav-back" text="Back" press="onNavBack" />
+        </contentLeft>
+        <contentRight>
+          <Button icon="sap-icon://add" text="Apply Comp. Off"
+                  type="Emphasized" press="onApplyCompOff" />
+        </contentRight>
+      </Bar>
+    </footer>
+  </Page>
+
+  <!-- Apply Comp Off Dialog -->
+  <Dialog id="applyCompOffDialog" title="Apply Comp. Off" contentWidth="440px">
+    <content>
+      <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+        <Label text="Worked Date" required="true" class="sapUiTinyMarginBottom" />
+        <DatePicker id="workedDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" />
+
+        <Label text="Shift" required="true" class="sapUiTinyMarginBottom" />
+        <Select id="compOffShiftSelect" width="100%" class="sapUiSmallMarginBottom">
+          <core:Item key="FULL"  text="Full Day" />
+          <core:Item key="FIRST" text="First Half" />
+          <core:Item key="SECOND" text="Second Half" />
+        </Select>
+
+        <Label text="Avail Date" required="true" class="sapUiTinyMarginBottom" />
+        <DatePicker id="availDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" />
+
+        <Label text="Reason" required="true" class="sapUiTinyMarginBottom" />
+        <TextArea id="compOffReason" rows="3" width="100%"
+                  placeholder="Enter reason for comp. off..." />
+      </VBox>
+    </content>
+    <beginButton>
+      <Button text="Submit" type="Emphasized" press="onSubmitCompOff" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press="onCloseCompOffDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>

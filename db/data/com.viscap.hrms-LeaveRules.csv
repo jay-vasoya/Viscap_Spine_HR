@@ -1,0 +1,7 @@
+ID,leaveType_ID,entitledDays,maxCarryForward,minNoticeDays,maxConsecutiveDays,isPaidLeave,isCarryAllowed,applicableGender,remarks
+lr-0001,lt-0001,12,5,1,30,true,true,All,Earned Leave – carry forward up to 5 days
+lr-0002,lt-0002,7,0,0,7,true,false,All,Sick Leave – no carry forward; medical certificate needed above 3 days
+lr-0003,lt-0003,15,0,0,180,true,false,Female,Maternity Leave – applicable after 80 days of service
+lr-0004,lt-0004,7,0,0,15,true,false,Male,Paternity Leave – to be availed within 3 months of child birth
+lr-0005,lt-0005,0,0,0,1,false,false,All,Leave Without Pay – approved only after all balances exhausted
+lr-0006,lt-0006,3,0,0,3,false,false,All,Compensatory Off – must be raised within 30 days of working on holiday

@@ -1,0 +1,129 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.OutdoorDuty"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page title="Outdoor Duty" showNavButton="true" navButtonPress="onNavBack"
+        backgroundDesign="List">
+
+    <headerContent>
+      <Button icon="sap-icon://add" text="Apply Outdoor Duty"
+              type="Emphasized" press="onApplyOD" />
+    </headerContent>
+
+    <content>
+      <VBox class="sapUiSmallMargin">
+
+        <Toolbar class="sapUiSmallMarginBottom">
+          <Select id="odStatusFilter" change="onFilterChange">
+            <core:Item key="ALL"       text="All Status" />
+            <core:Item key="Pending"   text="Pending" />
+            <core:Item key="Approved"  text="Approved" />
+            <core:Item key="Rejected"  text="Rejected" />
+            <core:Item key="Cancelled" text="Cancelled" />
+          </Select>
+          <ToolbarSpacer />
+          <SearchField width="200px" search="onSearch" placeholder="Search..." />
+        </Toolbar>
+
+        <Table id="odTable"
+          items="{
+            path: 'hrms>/OutdoorDutyRequests',
+            filters: [{ path: 'employee_ID', operator: 'EQ',
+                        value1: 'e1000000-0000-0000-0000-000000000001' }],
+            sorters: [{ path: 'date', descending: true }]
+          }"
+          backgroundDesign="Solid"
+          growing="true" growingThreshold="10">
+
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Outdoor Duty Requests" level="H4" />
+              <ToolbarSpacer />
+            </Toolbar>
+          </headerToolbar>
+
+          <columns>
+            <Column width="8rem"><Text text="Request No" /></Column>
+            <Column width="7rem"><Text text="Date" /></Column>
+            <Column width="7rem"><Text text="From Time" /></Column>
+            <Column width="7rem"><Text text="To Time" /></Column>
+            <Column><Text text="Purpose" /></Column>
+            <Column width="8rem"><Text text="Location" /></Column>
+            <Column width="7rem"><Text text="Status" /></Column>
+            <Column width="7rem"><Text text="Action" /></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Text text="{hrms>requestNo}" />
+                <Text text="{hrms>date}" />
+                <Text text="{hrms>fromTime}" />
+                <Text text="{hrms>toTime}" />
+                <Text text="{hrms>purpose}" maxLines="2" wrapping="true" />
+                <Text text="{hrms>location}" />
+                <ObjectStatus text="{hrms>status}"
+                  state="{= ${hrms>status} === 'Approved'  ? 'Success' :
+                             ${hrms>status} === 'Rejected'  ? 'Error'   :
+                             ${hrms>status} === 'Cancelled' ? 'None'    : 'Warning'}" />
+                <Button text="Cancel" type="Negative" press="onCancelOD"
+                  visible="{= ${hrms>status} === 'Pending'}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+          <noData><Text text="No outdoor duty requests found." /></noData>
+        </Table>
+      </VBox>
+    </content>
+
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://nav-back" text="Back" press="onNavBack" />
+        </contentLeft>
+        <contentRight>
+          <Button icon="sap-icon://add" text="Apply Outdoor Duty"
+                  type="Emphasized" press="onApplyOD" />
+        </contentRight>
+      </Bar>
+    </footer>
+  </Page>
+
+  <!-- Apply OD Dialog -->
+  <Dialog id="applyODDialog" title="Apply Outdoor Duty" contentWidth="440px">
+    <content>
+      <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+        <Label text="Date" required="true" class="sapUiTinyMarginBottom" />
+        <DatePicker id="odDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" />
+
+        <Label text="From Time" required="true" class="sapUiTinyMarginBottom" />
+        <TimePicker id="odFromTime" valueFormat="HH:mm" displayFormat="HH:mm"
+          width="100%" class="sapUiSmallMarginBottom" />
+
+        <Label text="To Time" required="true" class="sapUiTinyMarginBottom" />
+        <TimePicker id="odToTime" valueFormat="HH:mm" displayFormat="HH:mm"
+          width="100%" class="sapUiSmallMarginBottom" />
+
+        <Label text="Location" required="true" class="sapUiTinyMarginBottom" />
+        <Input id="odLocation" width="100%" placeholder="Enter location..."
+               class="sapUiSmallMarginBottom" />
+
+        <Label text="Purpose" required="true" class="sapUiTinyMarginBottom" />
+        <TextArea id="odPurpose" rows="3" width="100%"
+                  placeholder="Enter purpose of outdoor duty..." />
+      </VBox>
+    </content>
+    <beginButton>
+      <Button text="Submit" type="Emphasized" press="onSubmitOD" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press="onCloseODDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>
