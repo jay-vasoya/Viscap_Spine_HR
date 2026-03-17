@@ -1,0 +1,335 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.LeaveMyInfo"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page title="My Info" showNavButton="true" navButtonPress="onNavBack"
+        backgroundDesign="List">
+
+    <content>
+      <VBox class="sapUiSmallMargin">
+
+        <IconTabBar id="myInfoTabBar" select="onTabSelect"
+                    expanded="true" stretchContentHeight="false">
+          <items>
+
+            <!-- ══ ENTITLEMENT TAB ══════════════════════════════════════ -->
+            <IconTabFilter text="Entitlement"
+                           icon="sap-icon://customer-financial-fact-sheet"
+                           key="entitlement">
+              <content>
+                <VBox class="sapUiSmallMarginTop">
+                  <Title text="Leave Entitlement 2026" level="H4"
+                         class="sapUiSmallMarginBottom" />
+
+                  <!--
+                    Entity  : LeaveBalances
+                    Service : GET /odata/v4/hrms/LeaveBalances
+                    Filter  : applied in controller → employee_ID eq EMPLOYEE_ID
+                    Fields  : leaveTypeCode, leaveTypeName, leaveTypeColor (from projection)
+                              + balance fields from your schema
+                  -->
+                  <Table id="entitlementTable"
+                         items="{
+                           path: 'hrms>/LeaveBalances',
+                           parameters: {
+                             $select: 'leaveTypeCode,leaveTypeName,leaveTypeColor,totalDays,usedDays,remainingDays,lapsedDays,carryForward'
+                           }
+                         }"
+                         backgroundDesign="Solid"
+                         sticky="ColumnHeaders">
+                    <columns>
+                      <Column width="13rem">
+                        <Text text="Leave Type" />
+                      </Column>
+                      <Column width="6rem" hAlign="End">
+                        <Text text="Entitled" />
+                      </Column>
+                      <Column width="6rem" hAlign="End">
+                        <Text text="Availed" />
+                      </Column>
+                      <Column width="6rem" hAlign="End">
+                        <Text text="Balance" />
+                      </Column>
+                      <Column width="6rem" hAlign="End">
+                        <Text text="Lapsed" />
+                      </Column>
+                      <Column width="7rem" hAlign="End">
+                        <Text text="Carry Fwd" />
+                      </Column>
+                    </columns>
+                    <items>
+                      <ColumnListItem>
+                        <cells>
+                          <ObjectIdentifier
+                            title="{hrms>leaveTypeName}"
+                            text="{hrms>leaveTypeCode}" />
+                          <ObjectNumber
+                            number="{hrms>totalDays}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>usedDays}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>remainingDays}"
+                            unit="d"
+                            state="{= ${hrms>remainingDays} > 3 ? 'Success' : 'Warning'}" />
+                          <ObjectNumber
+                            number="{hrms>lapsedDays}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>carryForward}"
+                            unit="d" />
+                        </cells>
+                      </ColumnListItem>
+                    </items>
+                    <noData>
+                      <IllustratedMessage
+                        illustrationType="sapIllus-NoData"
+                        title="No Entitlements"
+                        description="No leave entitlement data found for this year." />
+                    </noData>
+                  </Table>
+                </VBox>
+              </content>
+            </IconTabFilter>
+
+            <!-- ══ MY LEAVE REGISTER TAB ════════════════════════════════ -->
+            <IconTabFilter text="My Leave Register"
+                           icon="sap-icon://history"
+                           key="register">
+              <content>
+                <VBox class="sapUiSmallMarginTop">
+
+                  <Toolbar class="sapUiSmallMarginBottom">
+                    <Label text="Year:" class="sapUiSmallMarginEnd" />
+                    <Select id="registerYearSelect"
+                            change="onRegisterYearChange">
+                      <core:Item key="2026" text="2026" />
+                      <core:Item key="2025" text="2025" />
+                      <core:Item key="2024" text="2024" />
+                    </Select>
+                    <ToolbarSpacer />
+                    <SearchField id="registerSearch"
+                                 width="220px"
+                                 placeholder="Search type, status, no..."
+                                 search="onRegisterSearch"
+                                 liveChange="onRegisterSearch" />
+                  </Toolbar>
+
+                  <!--
+                    Entity  : LeaveRequests
+                    Service : GET /odata/v4/hrms/LeaveRequests
+                    Filter  : applied in controller
+                              → employee_ID eq EMPLOYEE_ID AND year(fromDate) eq <year>
+                    Fields  : requestNo, leaveTypeCode, leaveTypeName,
+                              fromDate, toDate, days, reason,
+                              status, appliedOn  (from projection)
+                  -->
+                  <Table id="registerTable"
+                         items="{
+                           path: 'hrms>/LeaveRequests',
+                           parameters: {
+                             $select: 'requestNo,leaveTypeCode,leaveTypeName,fromDate,toDate,days,reason,status,appliedOn',
+                             $orderby: 'fromDate desc'
+                           }
+                         }"
+                         backgroundDesign="Solid"
+                         growing="true"
+                         growingThreshold="15"
+                         growingScrollToLoad="true"
+                         sticky="ColumnHeaders">
+                    <columns>
+                      <Column width="9rem">
+                        <Text text="Request No" />
+                      </Column>
+                      <Column width="12rem">
+                        <Text text="Leave Type" />
+                      </Column>
+                      <Column width="8rem">
+                        <Text text="From" />
+                      </Column>
+                      <Column width="8rem">
+                        <Text text="To" />
+                      </Column>
+                      <Column width="5rem" hAlign="End">
+                        <Text text="Days" />
+                      </Column>
+                      <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Reason" />
+                      </Column>
+                      <Column width="8rem">
+                        <Text text="Status" />
+                      </Column>
+                      <Column width="9rem"
+                              minScreenWidth="Tablet"
+                              demandPopin="true">
+                        <Text text="Applied On" />
+                      </Column>
+                    </columns>
+                    <items>
+                      <ColumnListItem type="Navigation"
+                                      press="onLeaveRequestPress">
+                        <cells>
+                          <Text text="{hrms>requestNo}" />
+                          <ObjectIdentifier
+                            title="{hrms>leaveTypeName}"
+                            text="{hrms>leaveTypeCode}" />
+                          <!-- OData V4 date type for proper formatting -->
+                          <Text text="{
+                            path: 'hrms>fromDate',
+                            type: 'sap.ui.model.odata.type.Date',
+                            formatOptions: { style: 'medium' }
+                          }" />
+                          <Text text="{
+                            path: 'hrms>toDate',
+                            type: 'sap.ui.model.odata.type.Date',
+                            formatOptions: { style: 'medium' }
+                          }" />
+                          <ObjectNumber number="{hrms>days}" unit="d" />
+                          <Text text="{hrms>reason}"
+                                maxLines="2"
+                                wrapping="true" />
+                          <ObjectStatus
+                            text="{hrms>status}"
+                            inverted="true"
+                            state="{= ${hrms>status} === 'Approved'  ? 'Success' :
+                                       ${hrms>status} === 'Rejected'  ? 'Error'   :
+                                       ${hrms>status} === 'Cancelled' ? 'None'    : 'Warning'}" />
+                          <Text text="{
+                            path: 'hrms>appliedOn',
+                            type: 'sap.ui.model.odata.type.Date',
+                            formatOptions: { style: 'medium' }
+                          }" />
+                        </cells>
+                      </ColumnListItem>
+                    </items>
+                    <noData>
+                      <IllustratedMessage
+                        illustrationType="sapIllus-NoEntries"
+                        title="No Leave Records"
+                        description="No leave requests found for the selected year." />
+                    </noData>
+                  </Table>
+                </VBox>
+              </content>
+            </IconTabFilter>
+
+            <!-- ══ LEAVE RULES TAB ══════════════════════════════════════ -->
+            <IconTabFilter text="Leave Rules"
+                           icon="sap-icon://document-text"
+                           key="rules">
+              <content>
+                <VBox class="sapUiSmallMarginTop">
+                  <Title text="Leave Rules &amp; Policies" level="H4"
+                         class="sapUiSmallMarginBottom" />
+
+                  <!--
+                    Entity  : LeaveRules
+                    Service : GET /odata/v4/hrms/LeaveRules
+                    No employee filter — this is a master policy table
+                    Fields  : leaveTypeCode, leaveTypeName, entitledDays,
+                              maxCarryForward, minNoticeDays,
+                              maxConsecutiveDays, isPaidLeave,
+                              isCarryAllowed, applicableGender, remarks
+                  -->
+                  <Table id="rulesTable"
+                         items="{
+                           path: 'hrms>/LeaveRules',
+                           parameters: {
+                             $orderby: 'leaveTypeName asc'
+                           }
+                         }"
+                         backgroundDesign="Solid"
+                         sticky="ColumnHeaders">
+                    <columns>
+                      <Column width="13rem">
+                        <Text text="Leave Type" />
+                      </Column>
+                      <Column width="7rem" hAlign="End">
+                        <Text text="Entitled (d)" />
+                      </Column>
+                      <Column width="8rem" hAlign="End">
+                        <Text text="Max Carry Fwd" />
+                      </Column>
+                      <Column width="8rem" hAlign="End">
+                        <Text text="Min Notice (d)" />
+                      </Column>
+                      <Column width="9rem" hAlign="End">
+                        <Text text="Max Consecutive" />
+                      </Column>
+                      <Column width="6rem" hAlign="Center">
+                        <Text text="Paid" />
+                      </Column>
+                      <Column width="6rem" hAlign="Center">
+                        <Text text="Carry Fwd" />
+                      </Column>
+                      <Column width="7rem">
+                        <Text text="Applicable" />
+                      </Column>
+                      <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Remarks" />
+                      </Column>
+                    </columns>
+                    <items>
+                      <ColumnListItem>
+                        <cells>
+                          <ObjectIdentifier
+                            title="{hrms>leaveTypeName}"
+                            text="{hrms>leaveTypeCode}" />
+                          <ObjectNumber
+                            number="{hrms>entitledDays}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>maxCarryForward}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>minNoticeDays}"
+                            unit="d" />
+                          <ObjectNumber
+                            number="{hrms>maxConsecutiveDays}"
+                            unit="d" />
+                          <ObjectStatus
+                            text="{= ${hrms>isPaidLeave} ? 'Yes' : 'No'}"
+                            state="{= ${hrms>isPaidLeave} ? 'Success' : 'None'}"
+                            inverted="true" />
+                          <ObjectStatus
+                            text="{= ${hrms>isCarryAllowed} ? 'Yes' : 'No'}"
+                            state="{= ${hrms>isCarryAllowed} ? 'Success' : 'None'}"
+                            inverted="true" />
+                          <Text text="{hrms>applicableGender}" />
+                          <Text text="{hrms>remarks}" wrapping="true" />
+                        </cells>
+                      </ColumnListItem>
+                    </items>
+                    <noData>
+                      <IllustratedMessage
+                        illustrationType="sapIllus-NoData"
+                        title="No Rules Configured"
+                        description="Leave policy rules have not been set up yet." />
+                    </noData>
+                  </Table>
+                </VBox>
+              </content>
+            </IconTabFilter>
+
+          </items>
+        </IconTabBar>
+
+      </VBox>
+    </content>
+
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://nav-back"
+                  text="Back"
+                  press="onNavBack" />
+        </contentLeft>
+      </Bar>
+    </footer>
+
+  </Page>
+</mvc:View>

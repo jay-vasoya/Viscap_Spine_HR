@@ -1,0 +1,141 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.LeaveMenu"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  displayBlock="true">
+
+  <Page
+    title="Leave"
+    showNavButton="true"
+    navButtonPress="onNavBack"
+    backgroundDesign="Standard">
+
+    <headerContent>
+      <SearchField
+        id="headerSearch"
+        width="400px"
+        placeholder="Search...."
+        search="onHeaderSearch" />
+    </headerContent>
+
+    <content>
+      <VBox class="sapUiMediumMargin">
+
+        <!-- ─── Menu Grid ──────────────────────────────────────── -->
+        <layout:Grid
+          defaultSpan="XL4 L4 M6 S12"
+          hSpacing="1"
+          vSpacing="1">
+          <layout:content>
+
+            <!-- My Info -->
+            <CustomListItem press="onMyInfo" type="Active"
+              class="hrmsMenuCard">
+              <HBox alignItems="Center" class="sapUiSmallMargin">
+                <VBox justifyContent="Center" class="hrmsMenuIcon sapUiSmallMarginEnd">
+                  <core:Icon
+                    src="sap-icon://contacts"
+                    size="2.5rem"
+                    color="#5b738b" />
+                </VBox>
+                <VBox>
+                  <Link text="My Info" press="onMyInfo"
+                    class="hrmsMenuTitle" />
+                  <Text
+                    text="Entitlement | My Leave Register | Leave Rules"
+                    class="hrmsMenuSubtitle" />
+                </VBox>
+              </HBox>
+            </CustomListItem>
+
+            <!-- Leave Planner -->
+            <CustomListItem press="onLeavePlanner" type="Active"
+              class="hrmsMenuCard">
+              <HBox alignItems="Center" class="sapUiSmallMargin">
+                <VBox justifyContent="Center" class="hrmsMenuIcon sapUiSmallMarginEnd">
+                  <core:Icon
+                    src="sap-icon://calendar"
+                    size="2.5rem"
+                    color="#5b738b" />
+                </VBox>
+                <VBox>
+                  <Link text="Leave Planner" press="onLeavePlanner"
+                    class="hrmsMenuTitle" />
+                  <Text
+                    text="Add Leave Planned | View Planner"
+                    class="hrmsMenuSubtitle" />
+                </VBox>
+              </HBox>
+            </CustomListItem>
+
+            <!-- Leave -->
+            <CustomListItem press="onLeave" type="Active"
+              class="hrmsMenuCard">
+              <HBox alignItems="Center" class="sapUiSmallMargin">
+                <VBox justifyContent="Center" class="hrmsMenuIcon sapUiSmallMarginEnd">
+                  <core:Icon
+                    src="sap-icon://document-text"
+                    size="2.5rem"
+                    color="#5b738b" />
+                </VBox>
+                <VBox>
+                  <Link text="Leave" press="onLeave"
+                    class="hrmsMenuTitle" />
+                  <Text
+                    text="Apply | Cancellation"
+                    class="hrmsMenuSubtitle" />
+                </VBox>
+              </HBox>
+            </CustomListItem>
+
+            <!-- Outdoor Duty -->
+            <CustomListItem press="onOutdoorDuty" type="Active"
+              class="hrmsMenuCard">
+              <HBox alignItems="Center" class="sapUiSmallMargin">
+                <VBox justifyContent="Center" class="hrmsMenuIcon sapUiSmallMarginEnd">
+                  <core:Icon
+                    src="sap-icon://personnel-view"
+                    size="2.5rem"
+                    color="#5b738b" />
+                </VBox>
+                <VBox>
+                  <Link text="Outdoor Duty" press="onOutdoorDuty"
+                    class="hrmsMenuTitle" />
+                  <Text
+                    text="Apply | Cancellation"
+                    class="hrmsMenuSubtitle" />
+                </VBox>
+              </HBox>
+            </CustomListItem>
+
+            <!-- Comp. Off -->
+            <CustomListItem press="onCompOff" type="Active"
+              class="hrmsMenuCard">
+              <HBox alignItems="Center" class="sapUiSmallMargin">
+                <VBox justifyContent="Center" class="hrmsMenuIcon sapUiSmallMarginEnd">
+                  <core:Icon
+                    src="sap-icon://shift"
+                    size="2.5rem"
+                    color="#5b738b" />
+                </VBox>
+                <VBox>
+                  <Link text="Comp. Off" press="onCompOff"
+                    class="hrmsMenuTitle" />
+                  <Text
+                    text="Apply | Cancellation"
+                    class="hrmsMenuSubtitle" />
+                </VBox>
+              </HBox>
+            </CustomListItem>
+
+          </layout:content>
+        </layout:Grid>
+
+      </VBox>
+    </content>
+
+  </Page>
+
+</mvc:View>

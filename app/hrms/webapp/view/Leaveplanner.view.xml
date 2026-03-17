@@ -1,0 +1,120 @@
+<mvc:View
+  controllerName="com.viscap.hrms.controller.LeavePlanner"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page title="Leave Planner" showNavButton="true" navButtonPress="onNavBack"
+        backgroundDesign="List">
+
+    <headerContent>
+      <Button icon="sap-icon://add" text="Add Leave Planned"
+              type="Emphasized" press="onAddLeavePlanned" />
+    </headerContent>
+
+    <content>
+      <VBox class="sapUiSmallMargin">
+
+        <IconTabBar id="plannerTabBar" expanded="true">
+          <items>
+            <IconTabFilter text="View Planner" icon="sap-icon://calendar" key="view">
+              <content>
+                <VBox class="sapUiSmallMarginTop">
+
+                  <Toolbar class="sapUiSmallMarginBottom">
+                    <Label text="Year:" class="sapUiSmallMarginEnd" />
+                    <Select id="plannerYearSelect" change="onPlannerYearChange">
+                      <core:Item key=""     text="All Years" />
+                      <core:Item key="2026" text="2026" />
+                      <core:Item key="2025" text="2025" />
+                      <core:Item key="2024" text="2024" />
+                    </Select>
+                    <ToolbarSpacer />
+                    <Button icon="sap-icon://refresh" press="onRefreshPlanner"
+                            tooltip="Refresh" />
+                  </Toolbar>
+
+                  <!-- ✅ FIX: No initial year filter — controller handles filtering -->
+                  <Table id="plannerTable"
+                    items="{
+                      path: 'hrms>/LeavePlanned',
+                      filters: [{ path: 'employee_ID', operator: 'EQ',
+                                  value1: 'e1000000-0000-0000-0000-000000000001' }],
+                      sorters: [{ path: 'fromDate', descending: false }]
+                    }"
+                    backgroundDesign="Solid"
+                    growing="true"
+                    growingThreshold="15"
+                    alternateRowColors="true">
+
+                    <headerToolbar>
+                      <Toolbar>
+                        <Title text="Planned Leaves" level="H5" />
+                        <ToolbarSpacer />
+                        <Text text="{= ${plannerTable>/}/length + ' records'}" />
+                      </Toolbar>
+                    </headerToolbar>
+
+                    <columns>
+                      <Column width="12rem"><Text text="Leave Type" /></Column>
+                      <Column width="7rem"><Text text="From" /></Column>
+                      <Column width="7rem"><Text text="To" /></Column>
+                      <Column width="5rem" hAlign="End"><Text text="Days" /></Column>
+                      <Column><Text text="Reason" /></Column>
+                      <Column width="7rem"><Text text="Status" /></Column>
+                      <Column width="7rem"><Text text="Action" /></Column>
+                    </columns>
+
+                    <items>
+                      <ColumnListItem>
+                        <cells>
+                          <ObjectIdentifier
+                            title="{hrms>leaveTypeName}"
+                            text="{hrms>leaveTypeCode}" />
+                          <Text text="{hrms>fromDate}" />
+                          <Text text="{hrms>toDate}" />
+                          <ObjectNumber number="{hrms>days}" unit="d" />
+                          <Text text="{hrms>reason}" wrapping="true" maxLines="2" />
+                          <ObjectStatus text="{hrms>status}"
+                            state="{= ${hrms>status} === 'Approved' ? 'Success' :
+                                       ${hrms>status} === 'Rejected' ? 'Error'   :
+                                       ${hrms>status} === 'Cancelled'? 'None'    : 'Warning'}" />
+                          <Button text="Delete" type="Negative"
+                            press="onDeletePlanned"
+                            visible="{= ${hrms>status} === 'Pending'}" />
+                        </cells>
+                      </ColumnListItem>
+                    </items>
+
+                    <noData>
+                      <IllustratedMessage
+                        illustrationType="sapIllus-NoData"
+                        title="No Planned Leaves"
+                        description="Click 'Add Leave Planned' to create one." />
+                    </noData>
+                  </Table>
+
+                </VBox>
+              </content>
+            </IconTabFilter>
+          </items>
+        </IconTabBar>
+
+      </VBox>
+    </content>
+
+    <footer>
+      <Bar>
+        <contentLeft>
+          <Button icon="sap-icon://nav-back" text="Back" press="onNavBack" />
+        </contentLeft>
+        <contentRight>
+          <Button icon="sap-icon://add" text="Add Leave Planned"
+                  type="Emphasized" press="onAddLeavePlanned" />
+        </contentRight>
+      </Bar>
+    </footer>
+
+  </Page>
+</mvc:View>

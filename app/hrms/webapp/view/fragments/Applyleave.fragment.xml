@@ -1,0 +1,42 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Dialog id="applyLeaveDialog" title="Apply for Leave" contentWidth="480px">
+    <content>
+      <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+
+        <Label text="Leave Type" required="true" class="sapUiTinyMarginBottom" />
+        <Select id="leaveTypeSelect" width="100%" class="sapUiSmallMarginBottom"
+          items="{path: 'hrms>/LeaveTypes'}">
+          <core:Item key="{hrms>ID}" text="{hrms>name}" />
+        </Select>
+
+        <Label text="From Date" required="true" class="sapUiTinyMarginBottom" />
+        <DatePicker id="fromDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" change="onDateChange" />
+
+        <Label text="To Date" required="true" class="sapUiTinyMarginBottom" />
+        <DatePicker id="toDatePicker" valueFormat="yyyy-MM-dd"
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" change="onDateChange" />
+
+        <Label text="Working Days" class="sapUiTinyMarginBottom" />
+        <Input id="daysInput" value="{dialogModel>/days}"
+               enabled="false" width="100%" class="sapUiSmallMarginBottom" />
+
+        <Label text="Reason" required="true" class="sapUiTinyMarginBottom" />
+        <TextArea id="reasonInput" rows="3" width="100%"
+                  placeholder="Enter reason for leave..." />
+      </VBox>
+    </content>
+    <beginButton>
+      <Button text="Submit" type="Emphasized" press="onSubmitLeave" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press="onCloseLeaveDialog" />
+    </endButton>
+  </Dialog>
+
+</core:FragmentDefinition>
