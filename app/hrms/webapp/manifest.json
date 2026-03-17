@@ -6,18 +6,26 @@
     "i18n": "i18n/i18n.properties",
     "title": "VISCAP HRMS",
     "description": "HR Self Service Portal",
-    "applicationVersion": { "version": "1.0.0" },
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
     "dataSources": {
       "hrmsService": {
         "uri": "/odata/v4/hrms/",
         "type": "OData",
-        "settings": { "odataVersion": "4.0" }
+        "settings": {
+          "odataVersion": "4.0"
+        }
       }
     }
   },
   "sap.ui": {
     "technology": "UI5",
-    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
   },
   "sap.fiori": {
     "registrationIds": [],
@@ -34,16 +42,19 @@
     "dependencies": {
       "minUI5Version": "1.108.0",
       "libs": {
-        "sap.m":          {},
-        "sap.ui.core":    {},
-        "sap.f":          {},
-        "sap.ui.layout":  {},
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.ui.layout": {},
         "sap.ui.unified": {},
-        "sap.uxap":       {},
-        "sap.tnt":        {}
+        "sap.uxap": {},
+        "sap.tnt": {}
       }
     },
-    "contentDensities": { "compact": true, "cozy": true },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
@@ -72,27 +83,142 @@
         "viewPath": "com.viscap.hrms.view",
         "controlId": "idAppControl",
         "controlAggregation": "pages",
-        "async": true
+        "async": true,
+        "transition": "slide"
       },
       "routes": [
-        { "pattern": "login",      "name": "login",      "target": "login"      },
-        { "pattern": "",           "name": "dashboard",  "target": "dashboard"  },
-        { "pattern": "attendance", "name": "attendance", "target": "attendance" },
-        { "pattern": "leave",      "name": "leave",      "target": "leave"      },
-        { "pattern": "salary",     "name": "salary",     "target": "salary"     },
-        { "pattern": "profile",    "name": "profile",    "target": "profile"    },
-        { "pattern": "employment", "name": "employment", "target": "employment" },
-        { "pattern": "contact",    "name": "contact",    "target": "contact"    }
+        {
+          "pattern": "login",
+          "name": "login",
+          "target": "login"
+        },
+        {
+          "pattern": "",
+          "name": "dashboard",
+          "target": "dashboard"
+        },
+        {
+          "pattern": "attendance",
+          "name": "attendance",
+          "target": "attendance"
+        },
+        {
+          "pattern": "leaveMenu",
+          "name": "leaveMenu",
+          "target": "leaveMenu"
+        },
+        {
+          "pattern": "leave",
+          "name": "leave",
+          "target": "leave"
+        },
+        {
+          "pattern": "leaveMyInfo",
+          "name": "leaveMyInfo",
+          "target": "leaveMyInfo"
+        },
+        {
+          "pattern": "leavePlanner",
+          "name": "leavePlanner",
+          "target": "leavePlanner"
+        },
+        {
+          "pattern": "outdoorDuty",
+          "name": "outdoorDuty",
+          "target": "outdoorDuty"
+        },
+        {
+          "pattern": "compOff",
+          "name": "compOff",
+          "target": "compOff"
+        },
+        {
+          "pattern": "salary",
+          "name": "salary",
+          "target": "salary"
+        },
+        {
+          "pattern": "profile",
+          "name": "profile",
+          "target": "profile"
+        },
+        {
+          "pattern": "employment",
+          "name": "employment",
+          "target": "employment"
+        },
+        {
+          "pattern": "contact",
+          "name": "contact",
+          "target": "contact"
+        }
       ],
       "targets": {
-        "login":      { "viewName": "Login",      "viewLevel": 0 },
-        "dashboard":  { "viewName": "Dashboard",  "viewLevel": 1 },
-        "attendance": { "viewName": "Attendance", "viewLevel": 1 },
-        "leave":      { "viewName": "Leave",      "viewLevel": 1 },
-        "salary":     { "viewName": "Salary",     "viewLevel": 1 },
-        "profile":    { "viewName": "Profile",    "viewLevel": 1 },
-        "employment": { "viewName": "Employment", "viewLevel": 1 },
-        "contact":    { "viewName": "Contact",    "viewLevel": 1 }
+        "login": {
+          "viewName": "Login",
+          "viewLevel": 0,
+          "transition": "fade"
+        },
+        "dashboard": {
+          "viewName": "Dashboard",
+          "viewLevel": 1,
+          "transition": "slide"
+        },
+        "attendance": {
+          "viewName": "Attendance",
+          "viewLevel": 2,
+          "transition": "slide"
+        },
+        "leaveMenu": {
+          "viewName": "LeaveMenu",
+          "viewLevel": 2,
+          "transition": "slide"
+        },
+        "leave": {
+          "viewName": "Leave",
+          "viewLevel": 3,
+          "transition": "slide"
+        },
+        "leaveMyInfo": {
+          "viewName": "LeaveMyInfo",
+          "viewLevel": 3,
+          "transition": "slide"
+        },
+        "leavePlanner": {
+          "viewName": "LeavePlanner",
+          "viewLevel": 3,
+          "transition": "slide"
+        },
+        "outdoorDuty": {
+          "viewName": "OutdoorDuty",
+          "viewLevel": 3,
+          "transition": "slide"
+        },
+        "compOff": {
+          "viewName": "CompOff",
+          "viewLevel": 3,
+          "transition": "slide"
+        },
+        "salary": {
+          "viewName": "Salary",
+          "viewLevel": 2,
+          "transition": "slide"
+        },
+        "profile": {
+          "viewName": "Profile",
+          "viewLevel": 2,
+          "transition": "slide"
+        },
+        "employment": {
+          "viewName": "Employment",
+          "viewLevel": 2,
+          "transition": "slide"
+        },
+        "contact": {
+          "viewName": "Contact",
+          "viewLevel": 2,
+          "transition": "slide"
+        }
       }
     }
   }

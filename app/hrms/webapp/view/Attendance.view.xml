@@ -4,149 +4,314 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
   xmlns:layout="sap.ui.layout"
+  xmlns:u="sap.ui.unified"
   displayBlock="true">
 
-  <Page title="My Attendance" showNavButton="true" navButtonPress="onNavBack" backgroundDesign="List">
-
-    <headerContent>
-      <Select id="monthSelector" change="onMonthChange">
-        <core:Item key="1"  text="January" />
-        <core:Item key="2"  text="February" />
-        <core:Item key="3"  text="March" />
-        <core:Item key="4"  text="April" />
-        <core:Item key="5"  text="May" />
-        <core:Item key="6"  text="June" />
-        <core:Item key="7"  text="July" />
-        <core:Item key="8"  text="August" />
-        <core:Item key="9"  text="September" />
-        <core:Item key="10" text="October" />
-        <core:Item key="11" text="November" />
-        <core:Item key="12" text="December" />
-      </Select>
-      <Select id="yearSelector" change="onMonthChange">
-        <core:Item key="2026" text="2026" />
-        <core:Item key="2025" text="2025" />
-      </Select>
-    </headerContent>
+  <Page
+    title="Attendance &gt; My Attendance"
+    showNavButton="true"
+    navButtonPress="onNavBack"
+    backgroundDesign="List">
 
     <content>
-      <VBox class="sapUiMediumMargin">
+      <VBox class="sapUiSmallMargin">
 
-        <!-- Summary Tiles -->
-        <layout:Grid defaultSpan="XL2 L2 M4 S6" class="sapUiSmallMarginBottom">
+        <!-- ─── Notes Bar ─────────────────────────────────────── -->
+        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+          <Label text="Notes :" class="sapUiSmallMarginEnd" />
+          <CheckBox id="dayLockChk" text="Day Lock Entry" enabled="false" />
+        </HBox>
+
+        <!-- ─── Employee + Period Row ─────────────────────────── -->
+        <layout:Grid defaultSpan="XL6 L6 M6 S12" class="sapUiSmallMarginBottom">
           <layout:content>
-            <GenericTile header="Present" class="hrmsTileSmall">
-              <tileContent><TileContent><content>
-                <NumericContent value="{attendModel>/present}" valueColor="Good" />
-              </content></TileContent></tileContent>
-            </GenericTile>
-            <GenericTile header="Absent" class="hrmsTileSmall">
-              <tileContent><TileContent><content>
-                <NumericContent value="{attendModel>/absent}" valueColor="Critical" />
-              </content></TileContent></tileContent>
-            </GenericTile>
-            <GenericTile header="Leave" class="hrmsTileSmall">
-              <tileContent><TileContent><content>
-                <NumericContent value="{attendModel>/leave}" valueColor="Neutral" />
-              </content></TileContent></tileContent>
-            </GenericTile>
-            <GenericTile header="Holidays" class="hrmsTileSmall">
-              <tileContent><TileContent><content>
-                <NumericContent value="{attendModel>/holidays}" valueColor="Good" />
-              </content></TileContent></tileContent>
-            </GenericTile>
-            <GenericTile header="Avg Hours" class="hrmsTileSmall">
-              <tileContent><TileContent><content>
-                <NumericContent value="{attendModel>/avgHours}" scale="hrs" valueColor="Good" />
-              </content></TileContent></tileContent>
-            </GenericTile>
+
+            <!-- Employee Name -->
+            <HBox alignItems="Center">
+              <Label text="Employee :" required="true" class="sapUiSmallMarginEnd" />
+              <Input id="employeeName" value="{attendModel>/employeeName}"
+                     editable="false" width="250px" />
+              <Label text="Employee Code :" class="sapUiSmallMarginBegin sapUiSmallMarginEnd" />
+              <Text text="{attendModel>/employeeCode}" class="sapUiSmallMarginEnd" />
+            </HBox>
+
+            <!-- Period Selector -->
+            <HBox alignItems="Center">
+              <Label text="For The Period" class="sapUiSmallMarginEnd" />
+              <Select id="monthSelector" change="onMonthChange" width="130px"
+                      class="sapUiSmallMarginEnd">
+                <core:Item key="1"  text="January" />
+                <core:Item key="2"  text="February" />
+                <core:Item key="3"  text="March" />
+                <core:Item key="4"  text="April" />
+                <core:Item key="5"  text="May" />
+                <core:Item key="6"  text="June" />
+                <core:Item key="7"  text="July" />
+                <core:Item key="8"  text="August" />
+                <core:Item key="9"  text="September" />
+                <core:Item key="10" text="October" />
+                <core:Item key="11" text="November" />
+                <core:Item key="12" text="December" />
+              </Select>
+              <Select id="yearSelector" change="onMonthChange" width="90px"
+                      class="sapUiSmallMarginEnd">
+                <core:Item key="2026" text="2026" />
+                <core:Item key="2025" text="2025" />
+                <core:Item key="2024" text="2024" />
+              </Select>
+              <Button text="Refresh" type="Emphasized" press="onRefresh"
+                      class="sapUiSmallMarginEnd" />
+              <CheckBox id="archiveChk" text="Get Report From Archive Data" />
+            </HBox>
+
           </layout:content>
         </layout:Grid>
 
-        <!-- Attendance Table -->
+        <!-- ─── Summary Tiles ─────────────────────────────────── -->
+        <HBox alignItems="Center" class="sapUiSmallMarginBottom" wrap="Wrap">
+
+          <!-- ABS -->
+          <VBox class="hrmsStatBox hrmsStatAbsent sapUiSmallMarginEnd"
+                alignItems="Center">
+            <HBox alignItems="Center">
+              <core:Icon src="sap-icon://circle-task" color="#ccc"
+                         class="sapUiTinyMarginEnd" />
+              <Text text="ABS" class="hrmsStatLabel" />
+            </HBox>
+            <Text text="{attendModel>/absent}" class="hrmsStatValue" />
+          </VBox>
+
+          <!-- DP (Present) -->
+          <VBox class="hrmsStatBox hrmsStatPresent sapUiSmallMarginEnd"
+                alignItems="Center">
+            <HBox alignItems="Center">
+              <core:Icon src="sap-icon://circle-task" color="green"
+                         class="sapUiTinyMarginEnd" />
+              <Text text="DP" class="hrmsStatLabel" />
+            </HBox>
+            <Text text="{attendModel>/present}" class="hrmsStatValue" />
+          </VBox>
+
+          <!-- PH (Public Holiday) -->
+          <VBox class="hrmsStatBox hrmsStatHoliday sapUiSmallMarginEnd"
+                alignItems="Center">
+            <HBox alignItems="Center">
+              <core:Icon src="sap-icon://circle-task" color="#c8956c"
+                         class="sapUiTinyMarginEnd" />
+              <Text text="PH" class="hrmsStatLabel" />
+            </HBox>
+            <Text text="{attendModel>/holidays}" class="hrmsStatValue" />
+          </VBox>
+
+          <!-- WO (Week Off) -->
+          <VBox class="hrmsStatBox hrmsStatWO sapUiSmallMarginEnd"
+                alignItems="Center">
+            <HBox alignItems="Center">
+              <core:Icon src="sap-icon://circle-task" color="#f0ab00"
+                         class="sapUiTinyMarginEnd" />
+              <Text text="WO" class="hrmsStatLabel" />
+            </HBox>
+            <Text text="{attendModel>/wfh}" class="hrmsStatValue" />
+          </VBox>
+
+          <!-- Spacer -->
+          <ToolbarSpacer />
+
+          <!-- Export PDF -->
+          <Button icon="sap-icon://pdf-attachment" text="Export PDF"
+                  type="Ghost" press="onExportPDF"
+                  class="sapUiSmallMarginBegin" />
+        </HBox>
+
+        <!-- ─── Attendance Table ───────────────────────────────── -->
         <Table
           id="attendTable"
           items="{
             path: 'hrms>/Attendances',
             filters: [{ path: 'employee_ID', operator: 'EQ', value1: 'e1000000-0000-0000-0000-000000000001' }],
-            sorters: [{ path: 'date', descending: true }]
+            sorters: [{ path: 'date', descending: false }]
           }"
           backgroundDesign="Solid"
           growing="true"
-          growingThreshold="31">
+          growingThreshold="31"
+          alternateRowColors="true"
+          sticky="ColumnHeaders,HeaderToolbar">
 
           <headerToolbar>
             <Toolbar>
               <Title text="Attendance Log" level="H4" />
               <ToolbarSpacer />
+              <Button icon="sap-icon://add" text="Apply Swipe"
+                      type="Emphasized" press="onApplySwipeNew" />
             </Toolbar>
           </headerToolbar>
 
           <columns>
-            <Column width="9rem"><Text text="Date" /></Column>
-            <Column width="6rem"><Text text="Day" /></Column>
-            <Column width="7rem"><Text text="In Time" /></Column>
-            <Column width="7rem"><Text text="Out Time" /></Column>
-            <Column width="7rem"><Text text="Hours" /></Column>
-            <Column width="8rem"><Text text="Status" /></Column>
-            <Column><Text text="Remarks" /></Column>
+            <Column width="7rem">
+              <Text text="Date" />
+            </Column>
+            <Column width="4rem">
+              <Text text="Day" />
+            </Column>
+            <Column width="6rem">
+              <Text text="Shift Code" />
+            </Column>
+            <Column width="7rem">
+              <Text text="Shift InTime" />
+            </Column>
+            <Column width="7.5rem">
+              <Text text="Shift OutTime" />
+            </Column>
+            <Column width="6rem">
+              <Text text="InTime" />
+            </Column>
+            <Column width="6rem">
+              <Text text="OutTime" />
+            </Column>
+            <Column width="6rem">
+              <Text text="User Type1" />
+            </Column>
+            <Column width="6rem">
+              <Text text="User Type2" />
+            </Column>
+            <Column width="5rem" hAlign="End">
+              <Text text="Portion" />
+            </Column>
+            <Column width="5rem" hAlign="End">
+              <Text text="Tot. Hrs." />
+            </Column>
+            <Column width="5.5rem" hAlign="End">
+              <Text text="LateMark" />
+            </Column>
+            <Column width="6.5rem" hAlign="End">
+              <Text text="InLateMark" />
+            </Column>
+            <Column width="5.5rem" hAlign="End">
+              <Text text="OutLate" />
+            </Column>
           </columns>
 
           <items>
             <ColumnListItem>
               <cells>
-                <Text text="{hrms>date}" />
+
+                <!-- Date — shown as link -->
+                <Link text="{hrms>date}"
+                      press="onDatePress" />
+
+                <!-- Day name -->
                 <Text text="{path: 'hrms>date', formatter: '.dayNameFormatter'}" />
-                <Text text="{hrms>inTime}" />
+
+                <!-- Shift Code -->
+                <Text text="{hrms>shiftCode}" />
+
+                <!-- Shift InTime -->
+                <Text text="{hrms>shiftInTime}" />
+
+                <!-- Shift OutTime -->
+                <Text text="{hrms>shiftOutTime}" />
+
+                <!-- InTime — highlight if late -->
+                <ObjectStatus
+                  text="{hrms>inTime}"
+                  state="{= ${hrms>inTime} ? 'None' : 'None'}" />
+
+                <!-- OutTime -->
                 <Text text="{hrms>outTime}" />
-                <ObjectNumber number="{hrms>workHours}" unit="h"
-                  state="{= ${hrms>workHours} >= 8 ? 'Success' : ${hrms>workHours} > 0 ? 'Warning' : 'None'}" />
-                <ObjectStatus text="{hrms>status}"
-                  state="{= ${hrms>status} === 'Present' ? 'Success' :
-                           ${hrms>status} === 'Absent'  ? 'Error'   :
-                           ${hrms>status} === 'Leave'   ? 'Warning' : 'None'}" />
-                <Text text="{hrms>remarks}" />
+
+                <!-- User Type 1 with colored dot -->
+                <HBox alignItems="Center">
+                  <core:Icon
+                    src="sap-icon://circle-task"
+                    color="{= ${hrms>userType1} === 'DP' ? 'green' :
+                               ${hrms>userType1} === 'WO' ? '#f0ab00' :
+                               ${hrms>userType1} === 'PH' ? '#c8956c' :
+                               ${hrms>userType1} === 'ABS' ? '#ccc' : '#ccc'}"
+                    class="sapUiTinyMarginEnd"
+                    size="0.8rem" />
+                  <Text text="{hrms>userType1}" />
+                </HBox>
+
+                <!-- User Type 2 -->
+                <Text text="{hrms>userType2}" />
+
+                <!-- Portion -->
+                <ObjectNumber
+                  number="{hrms>portion}"
+                  emphasized="false" />
+
+                <!-- Total Hours -->
+                <ObjectNumber
+                  number="{hrms>workHours}"
+                  unit="h"
+                  state="{= ${hrms>workHours} >= 8 ? 'Success' :
+                             ${hrms>workHours} > 0  ? 'Warning' : 'None'}" />
+
+                <!-- Late Mark -->
+                <ObjectNumber number="{hrms>lateMark}" emphasized="false" />
+
+                <!-- InLateMark -->
+                <ObjectNumber number="{hrms>inLateMark}" emphasized="false" />
+
+                <!-- OutLate -->
+                <ObjectNumber number="{hrms>outLate}" emphasized="false" />
+
               </cells>
             </ColumnListItem>
           </items>
+
+          <noData>
+            <IllustratedMessage
+              illustrationType="sapIllus-NoData"
+              title="No Attendance Data"
+              description="No records found for the selected period." />
+          </noData>
+
         </Table>
 
       </VBox>
     </content>
 
+    <!-- ─── Footer ──────────────────────────────────────────── -->
     <footer>
       <Bar>
         <contentLeft>
           <Button icon="sap-icon://home" text="Home" press="onNavBack" />
         </contentLeft>
         <contentRight>
-          <Button icon="sap-icon://add" text="Apply Swipe" type="Emphasized" press="onApplySwipeNew" />
+          <Button icon="sap-icon://add" text="Apply Swipe"
+                  type="Emphasized" press="onApplySwipeNew" />
         </contentRight>
       </Bar>
     </footer>
 
   </Page>
 
-  <!-- Swipe Dialog -->
-  <Dialog id="swipeDialog" title="Apply Swipe Request" contentWidth="400px">
+  <!-- ─── Swipe Dialog ──────────────────────────────────────── -->
+  <Dialog id="swipeDialog" title="Apply Swipe Request" contentWidth="420px">
     <content>
       <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
-        <Label text="Date" required="true" class="sapUiSmallMarginBottom" />
+
+        <Label text="Date" required="true" class="sapUiTinyMarginBottom" />
         <DatePicker id="swipeDatePicker" valueFormat="yyyy-MM-dd"
-          displayFormat="dd MMM yyyy" width="100%" class="sapUiSmallMarginBottom" />
+          displayFormat="dd MMM yyyy" width="100%"
+          class="sapUiSmallMarginBottom" />
 
-        <Label text="Swipe Time" required="true" class="sapUiSmallMarginBottom" />
+        <Label text="Swipe Time" required="true" class="sapUiTinyMarginBottom" />
         <TimePicker id="swipeTimePicker" valueFormat="HH:mm:ss"
-          displayFormat="HH:mm" width="100%" class="sapUiSmallMarginBottom" />
+          displayFormat="HH:mm" width="100%"
+          class="sapUiSmallMarginBottom" />
 
-        <Label text="Swipe Type" required="true" class="sapUiSmallMarginBottom" />
-        <Select id="swipeTypeSelect" width="100%" class="sapUiSmallMarginBottom">
+        <Label text="Swipe Type" required="true" class="sapUiTinyMarginBottom" />
+        <Select id="swipeTypeSelect" width="100%"
+                class="sapUiSmallMarginBottom">
           <core:Item key="IN"  text="IN" />
           <core:Item key="OUT" text="OUT" />
         </Select>
 
-        <Label text="Reason" required="true" class="sapUiSmallMarginBottom" />
+        <Label text="Reason" required="true" class="sapUiTinyMarginBottom" />
         <TextArea id="swipeReasonInput" rows="3" width="100%" />
+
       </VBox>
     </content>
     <beginButton>
